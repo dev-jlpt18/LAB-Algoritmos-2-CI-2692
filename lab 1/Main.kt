@@ -1,4 +1,8 @@
 fun main(args: Array<String>) {
+    if(args.size != 6){
+		println("Error, falta un argumento")
+		return
+	}
     var t: Int = 0
     var s: String = ""
     var n: Int = 0
@@ -11,14 +15,20 @@ fun main(args: Array<String>) {
     }
     var secuencia: Array<Int> = generador(s, n)
     println("Tenemos que: ${t}, ${s} y ${n}")
+    // println("La secuencia es: " + secuencia.contentToString()) 
+    if(secuencia[0] == -1){
+		println("Error, la clase de secuencia indicada no existe")
+		return
+	}
 
     for (i in 1 until 5) {
         var check = eficiencia(secuencia, t, i)
-        if (check == -1 || check == -2) {
-            break
+        if (check == -1) {
+            return
+        } else if(check == -2) {
+            println("Error, número de intentos no válido")
         }
     }
-    
 }
 
 fun generador(id: String, tamaño: Int): Array<Int> {
@@ -113,6 +123,7 @@ fun medirTiempo(A: Array<Int>, x: Int): Double {
     }
 	var tFinal: Long = System.currentTimeMillis()
 	var tiempo: Double = ((tFinal- tInicio)/1000.0).toDouble()
+    // println("Insertion Sort: " + A.contentToString())
 	return tiempo
 }
 
@@ -129,14 +140,21 @@ fun eficiencia(A: Array<Int>, intentos: Int, algoritmo: Int): Int {
 		}
 		val tiempoPromedio: Double = obtenerPromedioSecuencia(tiempos)
 		val desviacionEstandar: Double = obtenerDesviacionEstandarSecuencia(tiempos)
-		println("Algoritmo: ${id}. Tiempo promedio: ${tiempoPromedio}, desviación estándar: ${desviacionEstandar}")
+		println("Algoritmo: ${id}.")
+        println("Tiempo promedio: ${tiempoPromedio}")
+        println("Desviación estándar: ${desviacionEstandar}")
     	println("¡Todos los ordenamientos fueron exitosos!")
     	return 1
     } else if (intentos == 1){
     	var tiempo: Double = medirTiempo(A, algoritmo)
-    	println("Algoritmo: ${id}. Tiempo: ${tiempo}")
-    	println("¡Ordenamiento exitoso!")
-    	return 1
+        if (tiempo == -1.0) {
+            println("La secuencia no esta ordenada")
+            return -1
+        } else {
+            println("Algoritmo: ${id}. Tiempo: ${tiempo}")
+    	    println("¡Ordenamiento exitoso!")
+            return 1  
+        }
     } else {
     	return -2
     }

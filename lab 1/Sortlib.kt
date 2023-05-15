@@ -7,7 +7,7 @@ fun swap (A: Array<Int>,x: Int, y: Int): Unit {
 fun bubbleSort(A: Array<Int>) {
     // Realizar!
     for (i in 0 until (A.size-1)) {
-        for (j in A.size downTo (i+1)) {
+        for (j in (A.size-1) downTo (i+1)) {
             if (A[j] < A[j-1]) {
                 swap(A, j, j-1)
             }
@@ -45,11 +45,10 @@ fun selectionSort(A: Array<Int>) {
 
 fun shellSort(A: Array<Int>) {
     // Realizar!
-    var j: Int = 0
     var incr: Int = A.size/2
     while (incr > 0) {
         for (i in (incr+1) until A.size) {
-            j = i-incr
+            var j: Int = i-incr
             while (j > -1) {
                 if (A[j] > A[j+incr]) {
                     swap(A, j, j+incr)
