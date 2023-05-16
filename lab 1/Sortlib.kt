@@ -1,3 +1,11 @@
+/**
+ * Sortlib corresponde a una librería que implementa los siguientes algoritmos de ordenamiento simples:
+ * Insertion Sort, Selection Sort, Bubblesort y Shellsort.
+ * Además se implementa un procedimiento swap para intercambiar dos elementos dentro un arreglo.
+ * 
+ * Desarrollado por: Castillo, Haydeé y Prieto, Jesús.
+ */ 
+
 fun swap (A: Array<Int>,x: Int, y: Int): Unit {
     var temp: Int = A[x]
     A[x] = A[y]
@@ -5,7 +13,6 @@ fun swap (A: Array<Int>,x: Int, y: Int): Unit {
 }
 
 fun bubbleSort(A: Array<Int>) {
-    // Realizar!
     for (i in 0 until (A.size-1)) {
         for (j in (A.size-1) downTo (i+1)) {
             if (A[j] < A[j-1]) {
@@ -16,7 +23,6 @@ fun bubbleSort(A: Array<Int>) {
 }
 
 fun insertionSort(A: Array<Int>) {
-    // Realizar!
     for (i in 1 until A.size) {
         var j: Int = i
         while (A[j] < A[j-1]) {
@@ -29,7 +35,6 @@ fun insertionSort(A: Array<Int>) {
 }
 
 fun selectionSort(A: Array<Int>) {
-    // Realizar!
     for (i in 0 until (A.size-1)) {
         var lowIndex: Int = i
         var lowKey: Int = A[i]
@@ -44,7 +49,6 @@ fun selectionSort(A: Array<Int>) {
 }
 
 fun shellSort(A: Array<Int>) {
-    // Realizar!
     var incr: Int = A.size/2
     while (incr > 0) {
         for (i in (incr+1) until A.size) {

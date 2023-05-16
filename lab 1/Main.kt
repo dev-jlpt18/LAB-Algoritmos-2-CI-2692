@@ -1,9 +1,15 @@
-/*  Función que verifica la eficiencia de los algoritmos 
-    InsertionSort, BubbleSort, ShellSort y SelectionSort
-*/
+/**
+ * Main corresponde a un programa cliente para ejecutar los algoritmos de ordenamiento dados en
+ * la librería Sortlib bajo una misma serie de pruebas, en las cuales el usuario determina
+ * la clase de la secuencia a ordenar, su tamaño y el número de intentos a realizar.
+ * 
+ * Desarrollado por: Castillo, Haydeé y Prieto, Jesús. 
+ */
+
+ // Función main. Dicha función corresponde al punto de entrada del programa cliente
 fun main(args: Array<String>) {
-    // Verificar si la entrada de datos esta completa
-    if(args.size != 6){
+    // Verificar si la entrada de datos está completa    
+    if (args.size != 6){
 		println("Error, falta un argumento")
 		return
 	}
@@ -18,7 +24,7 @@ fun main(args: Array<String>) {
             "-s" -> s = args[i+1]
         }
     }
-    // Verificar si los datos (intentos y cantidad de elementos) son validos
+    // Verificar si los datos (intentos y cantidad de elementos) son válidos
     if (t < 1) {
         println("Error, número de intentos no válido")
         return
@@ -34,6 +40,7 @@ fun main(args: Array<String>) {
 		return
 	}
     println("Tenemos que se realizarán ${t} intentos, la secuencia es de clase ${s} y contiene ${n} elementos")
+    println("")
     // Chequeo de la eficiencia de cada algoritmo Sort
     for (i in 1 until 5) {
         var check = eficiencia(secuencia, t, i)
@@ -65,7 +72,7 @@ fun generadorDeSecuecias(id: String, tamaño: Int): Array<Int> {
         }
         return secuencia
     } else if (id == "zu") {
-        // Genera una secuencia de N elementos, de manera aleatoria usando solo 1 y 0
+        // Genera una secuencia de N elementos de manera aleatoria, usando sólo 1 y 0
         for (i in 0 until tamaño) {
             secuencia[i] = (0..1).random()
         }
@@ -107,7 +114,7 @@ fun obtenerPromedioSecuencia(A: Array<Double>): Double {
 	return promedio 
 }
 
-// Función que obtiene la Derivación Estandar de una secuencia
+// Función que obtiene la derivación estandar de una secuencia de números
 fun obtenerDesviacionEstandarSecuencia(A: Array<Double>): Double {
 	var promedio: Double = obtenerPromedioSecuencia(A)
 	var suma: Double = 0.0
@@ -121,7 +128,7 @@ fun obtenerDesviacionEstandarSecuencia(A: Array<Double>): Double {
 
 }
 
-// Función que determina cual algoritmo Sort se usara
+// Función que determina cuál algoritmo Sort se usara
 fun obtenerAlgoritmoSort(tipo: Int): String {
     when (tipo){
         1 -> return "InsertionSort"
@@ -129,10 +136,10 @@ fun obtenerAlgoritmoSort(tipo: Int): String {
         3 -> return "ShellSort"
         4 -> return "SelectionSort"
     }
-    return "null"
+    return "Algoritmo no encontrado"
 }
 
-// Función que mide el tiempo del algoritmo en segundos
+// Función que mide el tiempo (en segundos) del algoritmo Sort especificado
 fun medirTiempo(A: Array<Int>, x: Int): Double {
 	var tInicio: Long = System.currentTimeMillis()
 	when (x){
@@ -142,6 +149,7 @@ fun medirTiempo(A: Array<Int>, x: Int): Double {
         4 -> selectionSort(A)
     }
 	if (!estaEnOrdenAscendente(A)) {
+        // Si la secuencia no está ordenada de forma ascendente, la función retorna -1
 		return -1.0
     }
 	var tFinal: Long = System.currentTimeMillis()
@@ -149,7 +157,7 @@ fun medirTiempo(A: Array<Int>, x: Int): Double {
 	return tiempo
 }
 
-// Función que determina la eficiencia(tiempo e intentos) del algoritmo Sort seleccionado
+// Función que determina la eficiencia del algoritmo Sort seleccionado, de acuerdo al tiempo y el número de intentos 
 fun eficiencia(A: Array<Int>, intentos: Int, algoritmo: Int): Int {
 	var id: String = obtenerAlgoritmoSort(algoritmo)
     if(intentos > 1) {
