@@ -1,0 +1,49 @@
+%Plantilla HCCB para Ubuntu
+
+\documentclass{article}
+
+%Los paquetes
+
+\usepackage{amsmath, amsfonts} %Paquetes para manejar cosas de matemática
+\usepackage[spanish, es-tabla]{babel} %Paquete para utilizar LaTeX en español. La parte "es-tabla" es para que salga "TABLA 1" (en lugar de "CUADRO 1" que es el defecto)
+\usepackage{graphicx} %Paquete para insertar imágenes
+\usepackage{setspace} %Paquete para trabajar con las medidas en el documento
+\usepackage[a4paper]{geometry} %Paquete para trabajar con el tamaño del papel y los márgenes
+
+%Papel y márgenes
+
+\geometry{top=1cm, bottom=1cm, left=1cm, right=1cm} %Márgenes
+\setstretch{1} %Interlineado
+
+\begin{document}
+	\title{\normalsize{Universidad Sim\'on Bol\'ivar\\
+			Departamento de Computaci\'on y Tecnolog\'ia de la Informaci\'on\\
+			Laboratorio de Algoritmos y Estructuras II - CI2692}}
+	\author{\normalsize{Profesor: Guillermo Palma}\\
+		\normalsize{Estudiantes:}\\
+		\normalsize{Hayde\'e Castillo Borgo. Carnet: 16-10209}\\
+		\normalsize{Jes\'us Prieto. Carnet: 19-10211}}
+	\date{\normalsize{Trimestre Abril-Julio 2023}}
+	\maketitle
+	\begin{center}
+		\Large{\textbf{Laboratorio de la semana 2}}
+	\end{center}\
+	
+	$$\begin{array}{|c|ccccccc|}
+		\hline
+		& & &&\text{\textbf{Tiempo}} &\text{(en segundos)} & &\\
+		\hline
+		\text{\textbf{Arreglo}\ \# 1} & \text{Prueba}\ \# 1 & \text{Prueba}\ \# 2 & \text{Prueba}\ \# 3 & \text{Prueba}\ \# 4 & \text{Prueba}\ \# 5 & \text{Promedio} & \text{Desviación estándar}\\
+		n = 10 & 0.7 & 0.243 & 0.238 & 0.213 & 0.210 & 0.3208 & 0.19005199288616\\
+		n = 20 & 0.454 & 0.227 & 0.235 & 0.213 & 0.242\\
+		n = 30 & 0.304 & 0.220 & 0.218 & 0.207 & 0.202\\
+		n = 40 & 0.251 & 0.231 & 0.202 & 0.195 & 0.216\\
+		n = 50 & 0.252 & 0.218 & 0.199 & 0.199 & 0.201\\
+		n = 60 & 0.231 & 0.200 & 0.212 & 0.210 & 0.214\\
+		n = 70 & 0.241 & 0.201 & 0.180 & 0.181 & 0.179\\
+		n = 80 & 0.219 & 0.230 & 0.211 & 0.230 & 0.198\\
+		n = 90 & 0.226 & 0.188 & 0.188 & 0.176 & 0.175\\
+		n = 100 & 0.202 & 0.207 & 0.236 & 0.198 & 0.209\\
+		\hline
+	\end{array}$$
+\end{document}
