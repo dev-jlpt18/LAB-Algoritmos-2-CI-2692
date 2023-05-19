@@ -6,7 +6,7 @@
  * Desarrollado por: Castillo, Haydeé y Prieto, Jesús. 
  */
 
- // Función main. Dicha función corresponde al punto de entrada del programa cliente
+// Función main. Dicha función corresponde al punto de entrada del programa cliente
 fun main(args: Array<String>) {
     // Verificar si la entrada de datos está completa    
     if (args.size != 6){
