@@ -1,0 +1,62 @@
+%Plantilla HCCB para Ubuntu
+
+\documentclass{article}
+
+%Los paquetes
+
+\usepackage{amsmath, amsfonts} %Paquetes para manejar cosas de matemática
+\usepackage[spanish, es-tabla]{babel} %Paquete para utilizar LaTeX en español. La parte "es-tabla" es para que salga "TABLA 1" (en lugar de "CUADRO 1" que es el defecto)
+\usepackage{graphicx} %Paquete para insertar imágenes
+\usepackage{setspace} %Paquete para trabajar con las medidas en el documento
+\usepackage[a4paper]{geometry} %Paquete para trabajar con el tamaño del papel y los márgenes
+
+%Papel y márgenes
+
+\geometry{top=1.5cm, bottom=1.5cm, left=1.5cm, right=1.5cm} %Márgenes
+\setstretch{1} %Interlineado
+
+\begin{document}
+	\title{\normalsize{Universidad Sim\'on Bol\'ivar\\
+			Departamento de Computaci\'on y Tecnolog\'ia de la Informaci\'on\\
+			Laboratorio de Algoritmos y Estructuras II - CI2692}}
+	\author{\normalsize{Profesor: Guillermo Palma}\\
+		\normalsize{Estudiantes:}\\
+		\normalsize{Hayde\'e Castillo Borgo. Carnet: 16-10209}\\
+		\normalsize{Jes\'us Prieto. Carnet: 19-10211}}
+	\date{\normalsize{Trimestre Abril-Julio 2023}}
+	\maketitle
+	\begin{center}
+		\Large{\textbf{Laboratorio de la semana 2}}
+	\end{center}\:
+	
+	En el presente laboratorio se llev\'o a cabo un estudio experimental del algoritmo Mergersort desarrollado en \cite{1}, a trav\'es de un computador Intel® Core™ i5-2450M CPU @ 2.50GHz × 4, con 8Gb de RAM y sistema operativo Ubuntu 20.04.6 LTS; y empleando el lenguaje de programaci\'on Kotlin en su versi\'on 1.8.21.\\
+	
+	Mergesort es un algoritmo de ordenamiento de arreglos desarrollado por medio del esquema \textit{Divide-and-Conquer} y en su implementaci\'on emplea el algoritmo Insertion-Sort para ordenar arreglos de tamaño menor o igual a un cierto $n$. El objetivo del presente estudio fue determinar el valor m\'aximo para dicho $n$, de manera que el tiempo de ejecuci\'on de Mergesort fuese el mejor posible en la pr\'actica.\\
+	
+	Para ello se creó un arreglo de $1000000$ n\'umeros enteros, generados aleatoriamente en un rango de $[0,900000]$, y se le realizaron $5$ pruebas de ordenamiento para determinar la velocidad del algoritmo Mergesort. En cada una de dichas pruebas se consideraron diez tamaños $n: 10, 20, 30, 40, 50, 60, 70, 80, 90$ y $100$; y en la siguiente tabla se presentan los resultados del tiempo de ejecuci\'on del algoritmo en cada caso.
+
+	$$\begin{array}{|c|ccccccc|}
+		\hline
+		& & &&\text{\textbf{Tiempo}} &\text{(en segundos)} & &\\
+		\hline
+		\text{Tamaño}\ n & \text{Prueba}\ \# 1 & \text{Prueba}\ \# 2 & \text{Prueba}\ \# 3 & \text{Prueba}\ \# 4 & \text{Prueba}\ \# 5 & \text{Promedio} & \text{Desviación estándar}\\
+		10 & 2.030 & 0.586 & 0.570 & 0.588 & 0.622 & 0.879 & 0.576\\
+		20 & 0.863 & 0.705 & 0.698 & 0.625 & 0.820 & 0.742 & 0.087\\
+		30 & 0.789 & 0.541 & 0.539 & 0.548 & 0.554 & 0.594 & 0.098\\
+		40 & 0.524 & 0.550 & 0.530 & 0.512 & 0.535 & 0.530 & 0.013\\
+		50 & 0.508 & 0.577 & 0.499 & 0.489 & 0.584 & 0.531 & 0.041\\
+		60 & 0.521 & 0.516 & 0.543 & 0.515 & 0.625 & 0.544 & 0.042\\
+		70 & 0.671 & 0.582 & 0.581 & 0.579 & 0.832 & 0.649 & 0.098\\
+		80 & 0.605 & 0.485 & 0.485 & 0.545 & 0.588 & 0.542 & 0.050\\
+		90 & 0.469 & 0.463 & 0.470 & 0.547 & 0.574 & 0.505 & 0.046\\
+		100 & 0.476 & 0.487 & 0.495 & 0.551 & 0.568 & 0.515 & 0.037\\
+		\hline
+	\end{array}$$\:
+	
+	De los resultados presentados anteriormente se obtiene que $n = 90$ y $n = 100$ corresponden a los dos tamaños m\'as adecuados para que el tiempo de ejecuci\'on de Mergesort sea el mejor posible. Finalmente, se concluye que $n = 90$ es el tamaño m\'aximo \'optimo para la implementaci\'on del algoritmo Mergesort.
+	
+	\begin{thebibliography}{}
+		\bibitem{1} Brassard, G., and Bratley, P. \textit{Fundamentals of Algorithmics}. Prentice Hall, 1996.
+	\end{thebibliography}
+	
+\end{document}
