@@ -4,7 +4,7 @@ fun main(n: Int) {
     println(a.contentToString())
     println(b[0].contentToString())
     val A = generadorMatriz(n)
-    val B = Array(n){Array(n){Array(n){0}}}
+    val B = Array(n/2){Array(n/2){Array(n/2){0}}}
 }
 
 fun generadorMartriz(n: Int): Array<Array<Int>> {
@@ -34,6 +34,18 @@ fun multiplicacionSimpleDeMatrices(A: Array<Array<Int>>, B: Array<Array<Int>>): 
     }
 }
 
-fun multiplicacionStrassen(A: Array<Array<Int>>, B: Array<Array<Int>>): Array<Array<Int>> {
-    
+fun multiplicacionStrassen(A: Array<Array<Int>>, B: Array<Array<Int>>, N: Int): Array<Array<Int>>{
+    var C = Array(N/2){Array(N/2){Array(N/2){0}}}
+    var a = Array(N/2){Array(N/2){Array(N/2){0}}}
+    var b = Array(N/2){Array(N/2){Array(N/2){0}}}
+
+    return A;
 }
+
+fun particion(A: Array<Array<Int>>, D: Array<Array<Int>>, p: Int, q: Int, x: Int, y: Int ){
+    for (i in p until x) {
+        for (j in q until y) {
+            D[i]
+        }
+    }
+} 
