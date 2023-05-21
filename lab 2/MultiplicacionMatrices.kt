@@ -44,15 +44,24 @@ fun multiplicacionStrassen(A: Array<Array<Int>>, B: Array<Array<Int>>, N: Int): 
 		return C
     } else {
         var C = Array(N){Array(N){0}}
-        
-        var A11 = particion(A, 0, 0, N/2, N/2)
-        var A12 = particion(A, 0, N/2, N/2, N)
-        var A21 = particion(A, N/2, 0, N, N/2)
-        var A22 = particion(A, N/2, N/2, N, N)
-        var B11 = particion(B, 0, 0, N/2, N/2)
-        var B12 = particion(B, 0, N/2, N/2, N)
-        var B21 = particion(B, N/2, 0, N, N/2)
-        var B22 = particion(B, N/2, N/2, N, N)
+
+        var A11 = Array(N/2){Array(N/2){0}}
+        var A12 = Array(N/2){Array(N/2){0}}
+        var A21 = Array(N/2){Array(N/2){0}}
+        var A22 = Array(N/2){Array(N/2){0}}
+        var B11 = Array(N/2){Array(N/2){0}}
+        var B12 = Array(N/2){Array(N/2){0}}
+        var B21 = Array(N/2){Array(N/2){0}}
+        var B22 = Array(N/2){Array(N/2){0}}
+
+        particion(A, A11,0, 0, N/2, N/2)
+        particion(A, A12,0, N/2, N/2, N)
+        particion(A, A21,N/2, 0, N, N/2)
+        particion(A, A22,N/2, N/2, N, N)
+        particion(B, B11,0, 0, N/2, N/2)
+        particion(B, B12,0, N/2, N/2, N)
+        particion(B, B21,N/2, 0, N, N/2)
+        particion(B, B22,N/2, N/2, N, N)
 
         var S1 = restaMatriz(B12, B22)
         var S2 = sumaMatriz(A11, A12)
@@ -87,10 +96,9 @@ fun multiplicacionStrassen(A: Array<Array<Int>>, B: Array<Array<Int>>, N: Int): 
     }
 }
 
-fun particion(A: Array<Array<Int>>, p: Int, q: Int, x: Int, y: Int): Array<Array<Int>>{
+fun particion(A: Array<Array<Int>>, B: Array<Array<Int>>, p: Int, q: Int, x: Int, y: Int) {
     var m = 0
     var n = 0
-    var B = Array(A.size/2){Array(A.size/2){0}}
     for (i in p until x) {
         for (j in q until y) {
             B[m][n] = A[i][j]
@@ -99,8 +107,8 @@ fun particion(A: Array<Array<Int>>, p: Int, q: Int, x: Int, y: Int): Array<Array
         m = m +1
         n = 0
     }
-    return B
 }
+
 fun union (A: Array<Array<Int>>, B: Array<Array<Int>>, p: Int, x: Int, q:Int, y:Int) {
     var m = 0
     var n = 0
