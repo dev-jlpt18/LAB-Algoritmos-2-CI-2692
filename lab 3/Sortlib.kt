@@ -101,15 +101,27 @@ fun buildMaxHeap (A: Array<Int>, n: Int) {
 }
 
 fun smoothSort (A: Array<Int>) {
-    var (q ,r) = Pair(1, 0)
-    var (p, b, c) = Triple(1, 1, 1)
-    var (r1, b1, c1) = Triple(0, 0, 0)
+    /*var par = Pair(q = 1, r = 0)
+    var tripleOne = Triple(p = 1, b = 1, c = 1)
+    var tripleTwo = Triple(r1 = 0, b1 = 0, c1 = 0)*/
+    var q = 1
+    var r = 0
+    var p = 1
+    var b = 1
+    var c = 1
+    var r1 = 0
+    var b1 = 0
+    var c1 = 0
     while (q != A.size) {
         r1 = r
         if (p%8 == 3) {
             b1 = b
             c1 = c
-            sift(A, r1, b1, c1)
+            var tripleta = sift(A, r1, b1, c1)
+            r1 = tripleta.first
+            b1 = tripleta.second
+            c1 = tripleta.third
+
             p = (p+1)/4
             // primer up
             b = b +c+1
@@ -121,7 +133,10 @@ fun smoothSort (A: Array<Int>) {
             if (q+c < A.size) {
                 b1 = b
                 c1 = c
-                (r1, b1, c1) = sift(A, r1, b1, c1)
+                var tripleta = sift(A, r1, b1, c1)
+                r1 = tripleta.first
+                b1 = tripleta.second
+                c1 = tripleta.third
             } else {
                 trinkle()
             }
@@ -174,7 +189,7 @@ fun smoothSort (A: Array<Int>) {
     }
 }
 
-fun sitf(A: Array<Int>, r1 : Int, b1: Int, c1: Int): Triple<Int, Int, Int> {
+fun sitf(A: Array<Int>, r1: Int, b1: Int, c1: Int): Triple<Int, Int, Int> {
     var r2 = r1-b1+c1
     var b2 = b1
     var c2 = c1
@@ -196,5 +211,60 @@ fun sitf(A: Array<Int>, r1 : Int, b1: Int, c1: Int): Triple<Int, Int, Int> {
             c2 = b2-c2-1
         }
     }
-    return Triple(r3, b2, c2)
+    return Triple(r3,b2,c2)
+}
+
+fun semitrinkle(A: Array<Int>, r: Int, c: Int) {
+    var r2 = r -c
+    if (A[r2] > A[r]) {
+        swap(A, r, r2)
+        trinkle
+    }
+}
+
+fun trinkle(A: Array<Int>, p: Int, b: Int, c: Int) {
+    var p1 = p
+    var b1 = b
+    var c1 = c
+    while (p1 > 0) {
+        var r3: Int
+        while (even(p1)) {
+            p1 = p1/2
+            // up1
+            b1 = b1 + c1 +1
+            c1 = b1
+        }
+        r3 = r1 - b1
+        if (p1 == 1 || A[r3] <= A[r1]) {
+            p1 = 0
+        } else if (p1 > 1 && A[r3] > A[r1]) {
+            p1 = p1 -1
+            if (b1 == 1) {
+                swap(A, r1, r3)
+                r1 = r3
+            } else if (b1 >= 3) {
+                var r2 = r1-b1+c1
+                if (A[r2] <= A[r1-1]) {
+                    r2 = r1-1
+                    // down1
+                    b1 = c1
+                    c1= b1-c1-1
+
+                    p1 = 2*p1
+                }
+                if (A[r3] >= A[r2]) {
+                    swap(A, r1, r3)
+                    r1 = r3
+                } else {
+                    swap(A, r1, r2)
+                    r1 = r2
+                    // down1
+                    b1 = c1
+                    c1= b1-c1-1
+
+                    p1 = 0
+                }
+            }
+        }
+    }
 }
