@@ -56,7 +56,7 @@ fun generadorDeSecuecias(id: String, tamaño: Int): Array<Int> {
     if (id == "random") {
         // Genera una secuencia de N elementos, de manera aleatoria
         for (i in 0 until tamaño) {
-            secuencia[i] = (0..tamaño).random()
+            secuencia[i] = (0..900000).random()
         }
         return secuencia
     } else if (id == "sorted") {
