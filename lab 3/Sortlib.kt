@@ -68,42 +68,40 @@ fun shellSort(A: Array<Int>) {
     }
 }
 
-fun heapsort(A: Array<Int>) {
+fun heapSort(A: Array<Int>) {
     buildMaxHeap(A, A.size)
     for (i in A.size-1 downTo 1) {
         swap(A, 0, i)
-        maxHeapify(A, 0)
+        maxHeapify(A, 0, i-1)
     }
 }
 
-fun maxHeapify (A: Array<Int>, i: Int) {
+fun maxHeapify(A: Array<Int>, i: Int, heap: Int) {
     var left = 2*i+1
     var right = (i+1)*2
     var largest: Int
-    if (left <= A.size && A[left] > A[i]) {
+    if (left <= heap && A[left] > A[i]) {
         largest = left
     } else {
         largest = i
     }
-    if (right <= A.size && A[right] > A[largest]) {
+    if (right <= heap && A[right] > A[largest]) {
         largest = right
     }
     if (largest != i) {
         swap(A, i, largest)
-        maxHeapify(A, largest)
+        maxHeapify(A, largest, heap)
     }
 }
 
-fun buildMaxHeap (A: Array<Int>, n: Int) {
+fun buildMaxHeap(A: Array<Int>, n: Int) {
     for (i in (n/2-1) downTo 0) {
-        maxHeapify(A, i)
+        maxHeapify(A, i, n-1)
     }
 }
 
-fun smoothSort (A: Array<Int>) {
-    /*var par = Pair(q = 1, r = 0)
-    var tripleOne = Triple(p = 1, b = 1, c = 1)
-    var tripleTwo = Triple(r1 = 0, b1 = 0, c1 = 0)*/
+
+fun smoothSort(A: Array<Int>) {
     var q = 1
     var r = 0
     var p = 1
@@ -112,159 +110,216 @@ fun smoothSort (A: Array<Int>) {
     var r1 = 0
     var b1 = 0
     var c1 = 0
+    var tripleta: Triple<Int, Int, Int>
+    var pares : Pair<Int, Int>
     while (q != A.size) {
         r1 = r
         if (p%8 == 3) {
             b1 = b
             c1 = c
-            var tripleta = sift(A, r1, b1, c1)
+            tripleta = sitf(A, r1, b1, c1)
             r1 = tripleta.first
             b1 = tripleta.second
             c1 = tripleta.third
 
             p = (p+1)/4
             // primer up
-            b = b +c+1
-            c = b
+            pares = up(b, c)
+            b = pares.first
+            c = pares.second
             // segundo up
-            b = b +c+1
-            c = b
-        } else if (p%1 == 1) {
+            pares = up(b, c)
+            b = pares.first
+            c = pares.second
+        } else if (p%4 == 1) {
             if (q+c < A.size) {
                 b1 = b
                 c1 = c
-                var tripleta = sift(A, r1, b1, c1)
+                tripleta = sitf(A, r1, b1, c1)
                 r1 = tripleta.first
                 b1 = tripleta.second
                 c1 = tripleta.third
             } else {
-                trinkle()
+                tripleta = trinkle(A, r1, p, b, c)
+                r1 = tripleta.first
+                b1 = tripleta.second
+                c1 = tripleta.third
             }
+            // down
+            pares = down(b, c)
+            b = pares.first
+            c = pares.second
+
+            p = 2*p
             while (b != 1) {
                 // down
-                b = c
-                c = b-c-1
+                pares = down(b, c)
+                b = pares.first
+                c = pares.second
 
-                p = 2*p
-                p = p +1
+                p = 2*p   
             }
+            p = p +1
         }
         q = q+1
         r = r+1
     }
     r1 = r
-    trinkle()
+    tripleta = trinkle(A, r1, p, b, c)
+    r1 = tripleta.first
+    b1 = tripleta.second
+    c1 = tripleta.third
     while (q != 1) {
         q = q-1
-        if (b = 1) {
+        if (b == 1) {
             r = r-1
             p = p-1
             while (even(p)) {
                 p = p/2
                 // primer up
-                b = b +c+1
-                c = b
+                pares = up(b, c)
+                b = pares.first
+                c = pares.second
             }
         } else if (b >= 3) {
             p = p-1
-            r1 = r-b+c
+            r = r-b+c
             if (p > 0) {
-                semitrinkle()
+                tripleta = semitrinkle(A, b1, c1, p, b, r, c)
+                r1 = tripleta.first
+                b1 = tripleta.second
+                c1 = tripleta.third
             }
             // down
-            b = c
-            c = b-c-1
+            pares = down(b, c)
+            b = pares.first
+            c = pares.second
 
             p = 2*p +1
             r = r+c
 
-            semitrinkle()
+            tripleta = semitrinkle(A, b1, c1, p, b, r, c)
+            r1 = tripleta.first
+            b1 = tripleta.second
+            c1 = tripleta.third
 
             // down
-            b = c
-            c = b-c-1
+            pares = down(b, c)
+            b = pares.first
+            c = pares.second
 
             p = 2*p +1
         }
     }
 }
-
-fun sitf(A: Array<Int>, r1: Int, b1: Int, c1: Int): Triple<Int, Int, Int> {
-    var r2 = r1-b1+c1
-    var b2 = b1
-    var c2 = c1
-    var r3 = r1
-    while (b2 >= 3) {
-        if (A[r2] <= A[r1-1]) {
-            r2 = r1 -1
-            //down1
-            b2 = c2
-            c2 = b2-c2-1
-        }
-        if (A[r1] >= A[r2]) {
-            b2 = 1
-        } else {
-            swap(A, r1, r2)
-            r3 = r2
-            //down1
-            b2 = c2
-            c2 = b2-c2-1
-        }
-    }
-    return Triple(r3,b2,c2)
+fun up(x:Int, y: Int): Pair<Int, Int> {
+    var b = x+y+1
+    var c = x
+    return Pair(b, c)
 }
 
-fun semitrinkle(A: Array<Int>, r: Int, c: Int) {
+fun down(x:Int, y: Int): Pair<Int, Int> {
+    var b = y
+    var c = x-y-1
+    return Pair(b, c)
+}
+fun sitf(A: Array<Int>, r1: Int, b1: Int, c1: Int): Triple<Int, Int, Int> {
+    var b2 = b1
+    var c2 = c1
+    var r2 = r1
+    var pares : Pair<Int, Int>
+    while (b2 >= 3) {
+        var r3 = r2-b2+c2
+        if (A[r3] <= A[r2-1]) {
+            r3 = r2 -1
+            //down1
+            pares = down(b2,c2)
+            b2 = pares.first
+            c2 = pares.second
+        }
+        if (A[r2] >= A[r3]) {
+            b2 = 1
+        } else {
+            swap(A, r2, r3)
+            r2 = r3
+            //down1
+            pares = down(b2,c2)
+            b2 = pares.first
+            c2 = pares.second
+        }
+    }
+    return Triple(r2,b2,c2)
+}
+
+fun semitrinkle(A: Array<Int>, b1: Int, c1: Int, p: Int, b: Int, r: Int, c: Int): Triple<Int, Int, Int>  {
     var r2 = r -c
     if (A[r2] > A[r]) {
         swap(A, r, r2)
-        trinkle
+        return trinkle(A, r2, p, b, c)
     }
+    return Triple(r2, b1, c1)
 }
 
-fun trinkle(A: Array<Int>, p: Int, b: Int, c: Int) {
+fun trinkle(A: Array<Int>, r1: Int, p: Int, b: Int, c: Int): Triple<Int, Int, Int> {
     var p1 = p
     var b1 = b
     var c1 = c
+    var r2 = r1
+    var pares: Pair<Int, Int>
     while (p1 > 0) {
         var r3: Int
         while (even(p1)) {
             p1 = p1/2
             // up1
-            b1 = b1 + c1 +1
-            c1 = b1
+            pares = up(b1,c1)
+            b1 = pares.first
+            c1 = pares.second
         }
-        r3 = r1 - b1
-        if (p1 == 1 || A[r3] <= A[r1]) {
+        r3 = r2 - b1
+        if (p1 == 1 || A[r3] <= A[r2]) {
             p1 = 0
-        } else if (p1 > 1 && A[r3] > A[r1]) {
+        } else if (p1 > 1 && A[r3] > A[r2]) {
             p1 = p1 -1
             if (b1 == 1) {
-                swap(A, r1, r3)
-                r1 = r3
+                swap(A, r2, r3)
+                r2 = r3
             } else if (b1 >= 3) {
-                var r2 = r1-b1+c1
-                if (A[r2] <= A[r1-1]) {
-                    r2 = r1-1
+                var r4 = r2-b1+c1
+                if (A[r4] <= A[r2-1]) {
+                    r4 = r2-1
                     // down1
-                    b1 = c1
-                    c1= b1-c1-1
+                    pares = down(b1,c1)
+                    b1 = pares.first
+                    c1 = pares.second
 
                     p1 = 2*p1
                 }
-                if (A[r3] >= A[r2]) {
-                    swap(A, r1, r3)
-                    r1 = r3
+                if (A[r3] >= A[r4]) {
+                    swap(A, r2, r3)
+                    r2 = r3
                 } else {
-                    swap(A, r1, r2)
-                    r1 = r2
+                    swap(A, r2, r4)
+                    r2 = r4
                     // down1
-                    b1 = c1
-                    c1= b1-c1-1
+                    pares = down(b1,c1)
+                    b1 = pares.first
+                    c1 = pares.second
 
                     p1 = 0
                 }
             }
         }
     }
+    var tripleta = sitf(A, r2, b1, c1)
+    r2 = tripleta.first
+    b1 = tripleta.second
+    c1 = tripleta.third
+    return Triple(r2,b1,c1)
+}
+
+fun even(x: Int): Boolean {
+    if (x%2 == 0) {
+        return true
+    }
+    return false 
 }
