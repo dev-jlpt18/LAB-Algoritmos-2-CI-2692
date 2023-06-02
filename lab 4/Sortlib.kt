@@ -327,29 +327,29 @@ fun quicksortClasico(A: Array<Int>) {
 	var r = A.size
 	if (p < r) {
 		var q = partition(A, p, r)
-		quicksortClasic(A, p, q-1) // low side
-		quicksortClasic(A, q+1, r)// high side
+		quicksortClassic(A, p, q-1) // low side
+		quicksortClassic(A, q+1, r)// high side
 	}
 }
 
 fun partition(A: Array<Int>, p: Int, r:Int): Int {
-	var x: Int = A[r]
-	var i: Int = p -1
-	for (j in p until r) {
+	var x: Int = A[r-1]
+	var i: Int = p-1
+	for (j in p until r-1) {
 		if (A[j] <= x) {
 			i = i+1
 			swap(A, i, j)
 		}
 	}
-	swap(A, i+1, r)
+	swap(A, i+1, r-1)
 	return (i+1)
 }
 
-fun quicksortClasic(A: Array<Int>, p: Int, q: Int) {
+fun quicksortClassic(A: Array<Int>, p: Int, q: Int) {
 	if (p < q) {
 		var x = partition(A, p, q)
-		quicksortClasic(A, p, x-1)
-		quicksortClasic(A, (x+1), q)
+		quicksortClassic(A, p, x-1)
+		quicksortClassic(A, (x+1), q)
 	}
 }
 
@@ -397,7 +397,7 @@ fun quicksortThreeWay(A: Array<Int>) {
 		i++
 	}
 	quicksortTW(A, l, j)
-	quicksortTW(A, i, r)
+	quicksortTW(A, i, r-1)
 }
 
 fun quicksortTW(A: Array<Int>, l: Int, r: Int) {
@@ -442,12 +442,12 @@ fun quicksortTW(A: Array<Int>, l: Int, r: Int) {
 		i++
 	}
 	quicksortTW(A, l, j)
-	quicksortTW(A, i, r)
+	quicksortTW(A, i, r-1)
 }
 
 fun quicksortDualPivot(A: Array<Int>) {
 	var left = 0
-	var right = A.size
+	var right = A.size-1
 	if (right - left >= 1) {
 		var p = A[left]
 		var q = A[right]
