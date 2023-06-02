@@ -324,7 +324,7 @@ fun semitrinkle(m: Array<Int>, aux: Array<Int>) {
 
 fun quicksortClasico(A: Array<Int>) {
 	var p = 0
-	var r = A.size
+	var r = A.size-1
 	if (p < r) {
 		var q = partition(A, p, r)
 		quicksortClassic(A, p, q-1) // low side
@@ -333,23 +333,23 @@ fun quicksortClasico(A: Array<Int>) {
 }
 
 fun partition(A: Array<Int>, p: Int, r:Int): Int {
-	var x: Int = A[r-1]
+	var x: Int = A[r]
 	var i: Int = p-1
-	for (j in p until r-1) {
+	for (j in p until r) {
 		if (A[j] <= x) {
 			i = i+1
 			swap(A, i, j)
 		}
 	}
-	swap(A, i+1, r-1)
+	swap(A, i+1, r)
 	return (i+1)
 }
 
-fun quicksortClassic(A: Array<Int>, p: Int, q: Int) {
-	if (p < q) {
-		var x = partition(A, p, q)
-		quicksortClassic(A, p, x-1)
-		quicksortClassic(A, (x+1), q)
+fun quicksortClassic(A: Array<Int>, p: Int, r: Int) {
+	if (p < r) {
+		var q = partition(A, p, r)
+		quicksortClassic(A, p, q-1)
+		quicksortClassic(A, (q+1), r)
 	}
 }
 
@@ -360,102 +360,105 @@ fun quicksortThreeWay(A: Array<Int>) {
 	var j = r
 	var p = l-1
 	var q = r
-	var v = A[r-1]
-	if (r <= 1) {
+	var v = A[r]
+	if (r <= l) {
 		return 
 	} 
-	for (;;) {
-		while (A[i++] < v) {
-			while (v < A[--j]) {
-				if (j == 1) {
-					break
-				}
-				if (i >= j) {
-					break
-				}
-				swap(A, i, j)
-				if (A[i] == v) {
-					p++
-					swap(A, p, i)
-				}
-				if (v == A[j]) {
-					q--
-					swap(A, j, q)
-				}
+	while (true) {
+		while (A[++i] < v) {}
+		while (v < A[--j]) {
+			if (j == l) {
+				break
 			}
+		} 
+
+		if (i >= j) {
+			break
 		}
+		swap(A, i, j)
+		if (A[i] == v) {
+			p++
+			swap(A, p, i)
+		}
+		if (v == A[j]) {
+			q--
+			swap(A, j, q)
+		}	
 	}
 	swap(A, i, r)
 	j = i-1
 	i = i+1
-	for (k in l..p) {
+	for (k in l until p) {
 		swap(A, k, j)
 		j--
 	}
-	for (k in (r-1) downTo q) {
+	for (k in (r-1) downTo q+1) {
 		swap(A, i, k)
 		i++
 	}
 	quicksortTW(A, l, j)
-	quicksortTW(A, i, r-1)
+	quicksortTW(A, i, r)
 }
 
 fun quicksortTW(A: Array<Int>, l: Int, r: Int) {
+	if (r <= l) {
+		return 
+	} 
 	var i = l-1
 	var j = r
 	var p = l-1
 	var q = r
-	var v = A[r-1]
-	if (r <= 1) {
-		return 
-	} 
-	for (;;) {
-		while (A[i++] < v) {
-			while (v < A[--j]) {
-				if (j == 1) {
-					break
-				}
-				if (i >= j) {
-					break
-				}
-				swap(A, i, j)
-				if (A[i] == v) {
-					p++
-					swap(A, p, i)
-				}
-				if (v == A[j]) {
-					q--
-					swap(A, j, q)
-				}
+	var v = A[r]
+	while (true) {
+		while (A[++i] < v) {}
+		while (v < A[--j]) {
+			if (j == l) {
+				break
 			}
+		} 
+
+		if (i >= j) {
+			break
 		}
+		swap(A, i, j)
+		if (A[i] == v) {
+			p++
+			swap(A, p, i)
+		}
+		if (v == A[j]) {
+			q--
+			swap(A, j, q)
+		}	
 	}
-	swap(A, i, r-1)
+	swap(A, i, r)
 	j = i-1
 	i = i+1
-	for (k in l..p) {
+	for (k in l until p) {
 		swap(A, k, j)
 		j--
 	}
-	for (k in (r-1) downTo q) {
+	for (k in (r-1) downTo q+1) {
 		swap(A, i, k)
 		i++
 	}
 	quicksortTW(A, l, j)
-	quicksortTW(A, i, r-1)
+	quicksortTW(A, i, r)
+	
 }
 
 fun quicksortDualPivot(A: Array<Int>) {
 	var left = 0
 	var right = A.size-1
-	if (right - left >= 1) {
+	if (right-left >= 1) {
 		var p = A[left]
 		var q = A[right]
 		if (p > q) {
-			swap(A, p, q)
+    		swap(A, left, right)
+			p = A[left]
+			q = A[right]
 		}
-		var l = left +1
-		var g = right - 1
+		var l = left+1
+		var g = right-1
 		var k = l
 		while (k <= g) {
 			if (A[k] < p) {
@@ -487,14 +490,16 @@ fun quicksortDualPivot(A: Array<Int>) {
 }
 
 fun quicksortDPQY(A: Array<Int>, left: Int, right: Int) {
-	if (right - left >= 1) {
+	if (right-left >= 1) {
 		var p = A[left]
 		var q = A[right]
 		if (p > q) {
-			swap(A, p, q)
+    		swap(A, left, right)
+			p = A[left]
+			q = A[right]
 		}
-		var l = left +1
-		var g = right - 1
+		var l = left+1
+		var g = right-1
 		var k = l
 		while (k <= g) {
 			if (A[k] < p) {

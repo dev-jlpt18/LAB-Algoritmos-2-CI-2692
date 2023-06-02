@@ -24,10 +24,6 @@ fun main(args: Array<String>) {
         }
     }
     // Verificar si los datos (intentos y cantidad de elementos) son válidos
-    if (t < 1) {
-        println("Error, número de intentos no válido")
-        return
-    }
     if (n < 1) {
         println("Error, tamaño de la secuencia no válido")
         return
@@ -41,11 +37,9 @@ fun main(args: Array<String>) {
     println("Tenemos que se realizarán ${t} intentos, la secuencia es de clase ${s} y contiene ${n} elementos")
     println("")
     // Chequeo de la eficiencia de cada algoritmo Sort
-    for (i in 1 until 4) {
-        var check = eficiencia(s, n, i)
-        if (check == -1) {
-            return
-        }
+    var check = eficiencia(s, n)
+    if (check == -1) {
+        return
     }
 }
 
@@ -155,26 +149,27 @@ fun medirTiempo(A: Array<Int>, x: Int): Double {
 }
 
 // Función que determina la eficiencia del algoritmo Sort seleccionado, de acuerdo al tiempo y el número de intentos 
-fun eficiencia(s: String, n: Int, algoritmo: Int): Int {
+fun eficiencia(s: String, n: Int): Int {
     var j = 0
-    var id: String = obtenerAlgoritmoSort(algoritmo)
     var tiempos: Array<Double> = Array(10, {0.0})
-    while (j < 10) {
+    for (i in 1..3 ) {
+        var id: String = obtenerAlgoritmoSort(i)
+        while (j < 10) {
         var A: Array<Int> = generadorDeSecuecias(s, n)
-		tiempos[j] = medirTiempo(A, algoritmo)
+		tiempos[j] = medirTiempo(A, i)
 		if (tiempos[j] == -1.0) {
-			println("${id}: error intento ${j}, la secuencia no está ordenada")
+			println("${id}: error intento, la secuencia no está ordenada")
 			return -1
 		}
         j++
+        }
+        val tiempoPromedio: Double = obtenerPromedioSecuencia(tiempos)
+        val desviacionEstandar: Double = obtenerDesviacionEstandarSecuencia(tiempos)
+        println("Algoritmo: ${id}.")
+        println("Tiempo promedio: ${tiempoPromedio} segundos")
+        println("Desviación estándar: ${desviacionEstandar} segundos")
+        println("¡Todos los ordenamientos fueron exitosos!")
+        println("")
     }
-	val tiempoPromedio: Double = obtenerPromedioSecuencia(tiempos)
-	val desviacionEstandar: Double = obtenerDesviacionEstandarSecuencia(tiempos)
-	println("Algoritmo: ${id}.")
-    println("Tiempo promedio: ${tiempoPromedio} segundos")
-    println("Desviación estándar: ${desviacionEstandar} segundos")
-    println("¡Todos los ordenamientos fueron exitosos!")
-    println("")
-    return 1
-    
+    return 1 
 }
