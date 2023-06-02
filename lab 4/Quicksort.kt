@@ -139,7 +139,7 @@ fun swap (A: Array<Int>,x: Int, y: Int) {
     A[y] = temp
 }
 
-fun estaEnOrdenAscendente(A: Array<Int>): Boolean {
+/*fun estaEnOrdenAscendente(A: Array<Int>): Boolean {
     for (i in 0 until (A.size-1)) {
         if (A[i] > A[i+1]) {
             return false
@@ -159,14 +159,14 @@ fun main(args: Array<String>) {
 	var n = args[0].toInt()
 	var A = Array(n,{0})
 	for(i in 0 until n) {
-		A[i] = (0..9).random()
+		A[i] = (0..n).random()
 	}
 	//imprimiArreglo(A)
-	quicksortThreeWay(A)
+	quicksortClasico(A)
 	//imprimiArreglo(A)
 	if (estaEnOrdenAscendente(A) == true) {
 		println("Ordenado")
 	} else {
 		println("No ordenado")
 	}
-}
+}*/

@@ -1,5 +1,4 @@
-fun main(args: Array<String>) {
-    var N = args[0].toInt()
+fun main() {
     eficiencia(500000)
     eficiencia(1000000)
     eficiencia(1500000)
@@ -12,6 +11,7 @@ fun obtenerSecuenciaAleatoria(N: Int): Array<Int> {
     for (i in 0 until N) {
         A[i] = (0..N).random()
     }
+    return A
 }
 
 fun estaEnOrdenAscendente(A: Array<Int>): Boolean {
@@ -60,8 +60,8 @@ fun medirTiempo(A: Array<Int>, x: Int): Double {
 	var tInicio: Long = System.currentTimeMillis()
 	when (x){
         1 -> quicksortClasico(A)
-        2 -> quicsortThreeWay(A)
-        3 -> quisortDualPivot(A)
+        2 -> quicksortThreeWay(A)
+        3 -> quicksortDualPivot(A)
     }
 	var tFinal: Long = System.currentTimeMillis()
 	var tiempo: Double = ((tFinal- tInicio)/1000.0).toDouble()
@@ -71,14 +71,13 @@ fun medirTiempo(A: Array<Int>, x: Int): Double {
 	return tiempo
 }
 
-fun eficiencia(actualSize: Array<Int>) {
+fun eficiencia(actualSize: Int) {
     var tiempos: Array<Double> = Array(10, {0.0})
     for(j in 1 until 4) {
-        var algoritmo = obtenerAlgoritmoQuicksort(j)
-        var id = algoritmo.toString()
+        var id = obtenerAlgoritmoQuicksort(j)
         for (i in 0 until 10) {
-            A = obtenerSecuenciaAleatoria(actualSize)
-            tiempos[i] = medirTiempo(A, algoritmo) 
+            var A = obtenerSecuenciaAleatoria(actualSize)
+            tiempos[i] = medirTiempo(A, j) 
             if (tiempos[i] == -1.0) {
                 println("${id}: error arreglo ${i}, la secuencia no está ordenada")
                 return
