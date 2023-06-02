@@ -41,15 +41,15 @@ fun quicksortThreeWayOriginal(A: Array<Int>, l: Int, r: Int) {
 	var j = r 
 	var p = l - 1
 	var q = r
-	var v = A[r]
-	if (r <= 0) {
+	if (r <= l) {
 		return
 	}
+	var v = A[r]
 	while (true) {
-		while (A[i++] < v) {
+		while (A[++i] < v) {
 		}
-		while (v < A[j--]) {
-			if (j == 1) {
+		while (v < A[--j]) {
+			if (j == l) {
 				break
 			}
 		}
@@ -58,25 +58,25 @@ fun quicksortThreeWayOriginal(A: Array<Int>, l: Int, r: Int) {
 		}
 		swap(A, i, j)
 		if (A[i] == v)  {
-			p = p + 1
+			p++
 			swap(A,p,i)
 		}
 		if (v == A[j]) {
-			q = q - 1
+			q--
 			swap(A,j,q)
 		}
 	}
 	swap(A,i,r)
-	j = i-1
-	i = i+1
-	for(k in 1 until p) {
-		j = j - 1
+	j = i - 1
+	i = i + 1
+	for(k in l until p) {
 		swap(A,k,j)
+		j = j - 1
+		
 	}
-	j = j - 1
 	for(k in (r-1) downTo q){
-		i = i + 1
 		swap(A,i,k)
+		i = i + 1 
 	}
 	quicksortThreeWayOriginal(A, l, j)
 	quicksortThreeWayOriginal(A, i, r)
