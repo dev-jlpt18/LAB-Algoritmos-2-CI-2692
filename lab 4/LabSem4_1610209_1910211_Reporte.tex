@@ -1,0 +1,80 @@
+%Plantilla HCCB para Ubuntu
+
+\documentclass{article}
+
+%Los paquetes
+
+\usepackage{amsmath, amsfonts} %Paquetes para manejar cosas de matemática
+\usepackage[spanish, es-tabla]{babel} %Paquete para utilizar LaTeX en español. La parte "es-tabla" es para que salga "TABLA 1" (en lugar de "CUADRO 1" que es el defecto)
+\usepackage{graphicx} %Paquete para insertar imágenes
+\usepackage{setspace} %Paquete para trabajar con las medidas en el documento
+\usepackage[a4paper]{geometry} %Paquete para trabajar con el tamaño del papel y los márgenes
+
+%Papel y márgenes
+
+\geometry{top=1.5cm, bottom=1.5cm, left=1.5cm, right=1.5cm} %Márgenes
+\setstretch{1} %Interlineado
+
+\begin{document}
+	\title{\normalsize{Universidad Sim\'on Bol\'ivar\\
+			Departamento de Computaci\'on y Tecnolog\'ia de la Informaci\'on\\
+			Laboratorio de Algoritmos y Estructuras II - CI2692}}
+	\author{\normalsize{Profesor: Guillermo Palma}\\
+		\normalsize{Estudiantes:}\\
+		\normalsize{Hayde\'e Castillo Borgo. Carnet: 16-10209}\\
+		\normalsize{Jes\'us Prieto. Carnet: 19-10211}}
+	\date{\normalsize{Trimestre Abril-Julio 2023}}
+	\maketitle
+	\begin{center}
+		\Large{\textbf{Laboratorio de la semana 4}}
+	\end{center}\:
+	
+	En el presente laboratorio se llev\'o a cabo un estudio experimental de los algoritmos Quicksort, desarrollado en \cite{1}, Quicksort Three Way, desarrollado en \cite{2}, y Quicksort Dual Pivot, desarrollado en \cite{3}; a trav\'es de un computador Intel® Core™ i5-2450M CPU @ 2.50GHz × 4, con 8Gb de RAM y sistema operativo Ubuntu 20.04.6 LTS. Para dicho estudio se emple\'o el lenguaje de programaci\'on Kotlin en su versi\'on 1.8.21 y Java Virtual Machine JVM, versi\'on 11.0.19.\\
+	
+	Los tres algoritmos mencionados anteriormente son diferentes implementaciones de Quicksort, un algoritmo de ordenamiento basado en el esquema de Divide-and-Conquer; y el objetivo del presente estudio es verificar si las versiones mejoradas Three Way y Dual Pivot, en efecto son m\'as eficientes que el Quicksort cl\'asico.\\
+	
+	Para ello se ejecutaron las tres versiones del algoritmo sobre un conjunto de arreglos generados aleatoriamente, de la siguiente manera:\\
+	
+	Se consideraron cuatro tamaños: $N = 500.000$, $N = 1.000.000$, $N = 1.500.000$ y $N = 2.000.000$; y para cada $N$ se generaron $10$ arreglos, cuyos elementos ven\'ian dados por valores en el intervalo $[0,N]$. Luego, se ejecut\'o cada variante de Quicksort en cada uno de los $10$ arreglos, se tom\'o el tiempo correspondiente a cada prueba y se calcularon los promedios y desviaciones est\'andar, agrupando las pruebas de acuerdo al tamaño del arreglo.\\
+	
+	Dichos resultados se presentan en la siguiente tabla y en el siguiente gr\'afico. 
+
+	$$\begin{array}{|c|ccc|}
+		\hline
+		\textbf{Algoritmo} & \textbf{Tamaño de los arreglos} &
+		\textbf{Tiempo promedio} & \textbf{Desviación estándar}\\
+		 & N & \text{(en segundos)} & \text{(en segundos)}\\
+		\hline
+		\text{Quicksort Cl\'asico} & 500000 & 0.2323 & 0.0352\\
+		\text{Quicksort Three Way} & 500000 & 0.1652 & 0.0492\\
+		\text{Quicksort Dual Pivot} & 500000 & 0.2078 & 0.0993\\
+		\hline
+		\text{Quicksort Cl\'asico} & 1000000 & 0.4989 & 0.0904\\
+		\text{Quicksort Three Way} & 1000000 & 0.3688 & 0.1006\\
+		\text{Quicksort Dual Pivot} & 1000000 & 0.4143 & 0.0517\\
+		\hline
+		\text{Quicksort Cl\'asico} & 1500000 & 0.9236 & 0.0771\\
+		\text{Quicksort Three Way} & 1500000 & 0.6256 & 0.1004\\
+		\text{Quicksort Dual Pivot} & 1500000 & 0.7525 & 0.0923\\
+		\hline
+		\text{Quicksort Cl\'asico} & 2000000 & 1.299 & 0.0908\\
+		\text{Quicksort Three Way} & 2000000 & 0.8963 & 0.1081\\
+		\text{Quicksort Dual Pivot} & 2000000 & 1.1885 & 0.1898\\
+		\hline
+	\end{array}$$\:
+	
+	De lo obtenido se concluye que, en efecto, las variantes Three Way y Dual Pivot son m\'as eficientes que el Quicksort cl\'asico. A\'un m\'as, se obtuvo que la variante Three Way result\'o ser la m\'as eficiente de las tres. 
+
+	
+	\begin{thebibliography}{}
+		\bibitem{1} Cormen, T., Leirserson, C., Rivest, R., and Stein, C. \textit{Introduction to Algo-
+		rithms}, 3ra ed. McGraw Hill, 2009.
+		\bibitem{2} Sedgewick, R., and Bentley, J. Quicksort is optimal. https://sedgewick.
+		io/wp-content/uploads/2022/03/2002QuicksortIsOptimal.pdf, 2002. KnuthFest,
+		Stanford University.
+		\bibitem{3} Wild, S., and Nebel, M. E. Average case analysis of java 7’s dual pivot quicksort.
+		In \textit{Algorithms–ESA 2012: 20th Annual European Symposium, Ljubljana, Slovenia, Sep-
+		tember 10-12, 2012. Proceedings 20} (2012), Springer, pp. 825–836.
+	\end{thebibliography}
+	
+\end{document}

@@ -1,7 +1,7 @@
 /**
  * Sortlib corresponde a una librería que implementa los siguientes algoritmos de ordenamiento:
- * Insertion Sort, Selection Sort, Bubblesort, Shellsort, Mergesort,
- * HeapSort, SmoothSort, QuickSort, QSThreeWay y QSDualPivot.
+ * Insertion Sort, Selection Sort, Bubblesort, Shellsort, Mergesort, Heapsort,
+ * SmoothSort, Quicksort clásico, Quicksort Three Way y Quicksort Dual Pivot.
  * Se implementa un procedimiento swap para intercambiar dos elementos dentro un arreglo,
  * además de otros procedimientos necesarios para algunos algoritmos.
  * 
