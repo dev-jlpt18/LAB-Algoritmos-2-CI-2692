@@ -28,16 +28,12 @@ fun main(args: Array<String>) {
         println("Error, tamaño de la secuencia no válido")
         return
     }
-    // Generación de la secuencia y verificación de existencia de la clase de secuencia
-    var secuencia: Array<Int> = generadorDeSecuecias(s, n)
-    if(secuencia[0] == -1){
-		println("Error, la clase de secuencia indicada no existe")
-		return
-	}
     println("Tenemos que se realizarán ${t} intentos, la secuencia es de clase ${s} y contiene ${n} elementos")
     println("")
     // Chequeo de la eficiencia de cada algoritmo Sort
-    var check = eficiencia(s, n)
+    var check = eficiencia(s, n, 1)
+    var check2 = eficiencia(s, n, 2)
+    var check3 = eficiencia(s, n, 3)
     if (check == -1) {
         return
     }
@@ -149,19 +145,18 @@ fun medirTiempo(A: Array<Int>, x: Int): Double {
 }
 
 // Función que determina la eficiencia del algoritmo Sort seleccionado, de acuerdo al tiempo y el número de intentos 
-fun eficiencia(s: String, n: Int): Int {
+fun eficiencia(s: String, n: Int, i: Int): Int {
     var j = 0
     var tiempos: Array<Double> = Array(10, {0.0})
-    for (i in 1..3 ) {
         var id: String = obtenerAlgoritmoSort(i)
         while (j < 10) {
-        var A: Array<Int> = generadorDeSecuecias(s, n)
-		tiempos[j] = medirTiempo(A, i)
-		if (tiempos[j] == -1.0) {
-			println("${id}: error intento, la secuencia no está ordenada")
-			return -1
-		}
-        j++
+            var A: Array<Int> = generadorDeSecuecias(s, n)
+            tiempos[j] = medirTiempo(A, i)
+            if (tiempos[j] == -1.0) {
+                println("${id}: error intento, la secuencia no está ordenada")
+                return -1
+            }
+            j++
         }
         val tiempoPromedio: Double = obtenerPromedioSecuencia(tiempos)
         val desviacionEstandar: Double = obtenerDesviacionEstandarSecuencia(tiempos)
@@ -170,6 +165,6 @@ fun eficiencia(s: String, n: Int): Int {
         println("Desviación estándar: ${desviacionEstandar} segundos")
         println("¡Todos los ordenamientos fueron exitosos!")
         println("")
-    }
+    
     return 1 
 }
