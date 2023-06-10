@@ -1,22 +1,13 @@
+import kotlin.math.max
+
 fun countingSort(A: Array<Int>) {
 	var n = A.size
-	var k = obtenerMaximo(A)
+	var k = A.max()
 	var B = Array(n, {0})
 	countingSortOriginal(A,B,k)
 	for (i in 0 until n) {
 		A[i] = B[i]
 	}
-}
-
-fun obtenerMaximo(A: Array<Int>): Int {
-	var n = A.size
-	var maximo = A[0]
-	for (i in 1 until n) {
-		if (A[i] > maximo) {
-			maximo = A[i]
-		}
-	}
-	return maximo
 }
 
 fun countingSortOriginal(A: Array<Int>, B: Array<Int>, k: Int) {
@@ -36,7 +27,7 @@ fun countingSortOriginal(A: Array<Int>, B: Array<Int>, k: Int) {
 
 fun radixSort(A: Array<Int>) {
 	var n = A.size
-	var k = obtenerMaximo(A)
+	var k = A.max()
 	var d = obtenerNumeroDigitos(k)
 	var potenciaDe10 = 1
 	for (i in 0 until d+1) {
@@ -54,11 +45,11 @@ fun obtenerNumeroDigitos(a: Int): Int {
 		return 1
 	}
 	var potenciaDe10 = 10
+	var numeroDeDigitos = 1
 	while(a/potenciaDe10 > 0) {
 		potenciaDe10 = 10*potenciaDe10
+		numeroDeDigitos = numeroDeDigitos + 1
 	}
-	var exponentePotenciaDe10 = Math.log(potenciaDe10.toDouble())/Math.log(10.0)
-	var numeroDeDigitos = exponentePotenciaDe10.toInt()
 	return numeroDeDigitos
 }
 
