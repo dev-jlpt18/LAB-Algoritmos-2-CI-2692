@@ -485,3 +485,98 @@ fun quicksortDualPivotOriginal(A: Array<Int>, left: Int, right: Int) {
 		quicksortDualPivotOriginal(A,g+1,right)
 	}
 }
+
+// Algoritmo: Counting Sort
+
+fun countingSort(A: Array<Int>) {
+	var k = A.max()
+	var B = Array(A.size){0}
+	var C = Array(k+1){0}
+	
+	for (j in 0 until A.size) {
+		C[A[j]] = C[A[j]]+1
+	}
+
+	for (i in 1 until C.size) {
+		C[i] = C[i] + C[i-1]
+	}
+		
+	for (j in A.size-1 downTo 0) {
+		B[C[A[j]]-1] = A[j] 
+		C[A[j]] = C[A[j]] -1
+	}
+	for (i in 0 until A.size) {
+		A[i] = B[i]
+	}
+}
+
+/* Algoritmo: Radix sort
+ * Funciones y procedimientos asociados:
+ * digitos: Esta función obtiene el número de dígitos del elemento máximo de un arreglo dado
+ * posicion: Esta función genera un arreglo con los digitos en la posición d, de los elementos de un arreglo dado
+ * potencia: Esta función recibe un a: Int y retorna una potencia de base 10 y exponente a-1
+ * crSort: Este procedimiento es una versión modificada de Counting Sort que permite ordenar un arreglo A de acuerdo a
+ * los dígitos de un arreglo D dado
+ */
+
+
+fun radixSort(A: Array<Int>) {
+	var d = digitos(A)
+	for (i in 1..d) {
+		var B = posicion(A, i)
+		crSort(A, B)
+	}
+}
+
+fun digitos(A: Array<Int>): Int {
+	var k = A.max()
+	var i = 10
+	var j = 1
+	while (k/i > 0) {
+		i = i*10
+		j++
+	}
+	return j
+}
+
+fun posicion(A: Array<Int>, d: Int): Array<Int> {
+	var B = Array(A.size){0}
+	var divisor = potencia(d)
+	for (i in 0 until A.size) {
+		B[i] = (A[i]/divisor)%10
+	}
+	return B
+}
+
+fun potencia(a: Int): Int {
+	var i = 1
+	var b = 1
+	if (a == 1) {
+		return 1
+	} else {
+		while (i < a) {
+			b = b*10 
+			i++
+		}
+		return b
+	}
+}
+fun crSort(A: Array<Int>, D: Array<Int>) {
+	var k = D.max()
+	var B = Array(D.size){0}
+	var C = Array(k+1){0}
+
+	for (j in 0 until D.size) {
+		C[D[j]] = C[D[j]]+1
+	}
+	for (i in 1 until C.size) {
+		C[i] = C[i] + C[i-1]
+	}
+	for (j in D.size-1 downTo 0) {
+		B[C[D[j]]-1] = A[j] 
+		C[D[j]] = C[D[j]] -1
+	}
+	for (i in 0 until A.size) {
+		A[i] = B[i]
+	}
+}
