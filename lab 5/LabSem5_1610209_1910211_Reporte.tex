@@ -1,6 +1,6 @@
 %Plantilla HCCB para Ubuntu
 
-\documentclass{article}
+\documentclass[titlepage]{article}
 
 %Los paquetes
 
@@ -16,19 +16,39 @@
 \geometry{top=2cm, bottom=2cm, left=2cm, right=2cm} %Márgenes
 \setstretch{1} %Interlineado
 \begin{document}
-	\title{\normalsize{Universidad Sim\'on Bol\'ivar\\
-			Departamento de Computaci\'on y Tecnolog\'ia de la Informaci\'on\\
-			Laboratorio de Algoritmos y Estructuras II - CI2692}}
-	\author{\normalsize{Profesor: Guillermo Palma}\\
-		\normalsize{Estudiantes:}\\
-		\normalsize{Hayde\'e Castillo Borgo. Carnet: 16-10209}\\
-		\normalsize{Jes\'us Prieto. Carnet: 19-10211}}
-	\date{\normalsize{Trimestre Abril-Julio 2023}}
-	\maketitle
-	\begin{center}
-		\large{\textbf{Comparaci\'on de algunos algoritmos implementados en la librer\'ia Sortlib.kt}}\\
-		\large{\textbf{Laboratorio de la semana 5}}
-	\end{center}\:
+	\begin{titlepage}
+		\centering
+		\includegraphics*[scale=0.2]{logo usb.jpg}
+		
+		\vspace{0.5cm}		
+		
+		\large 
+		Universidad Sim\'on Bol\'ivar\\
+		Departamento de Computaci\'on y Tecnolog\'ia de la Informaci\'on\\
+		Laboratorio de Algoritmos y Estructuras II - CI2692
+		
+		\vspace{7cm}
+		
+		\LARGE
+		\textbf{Comparaci\'on de algunos algoritmos implementados en la librer\'ia Sortlib}
+		
+		\vspace{0.5cm}
+		
+		\textbf{Informe de laboratorio. Semana 5}
+		
+		\vspace{5cm}
+		
+		\large
+		
+		Profesor: Guillermo Palma\\
+		Estudiantes:\\
+		Hayde\'e Castillo Borgo. Carnet: 16-10209\\
+		Jes\'us Prieto. Carnet: 19-10211
+		
+		\vspace{5cm}
+		
+		Trimestre Abril-Julio 2023
+	\end{titlepage}
 	
 	En el presente laboratorio se llev\'o a cabo un estudio experimental para comparar el tiempo de ejecuci\'on de los siguientes algoritmos de ordenamiento, los cuales se encuentran implementados en la librer\'ia Sortlib.kt: Mergesort, desarrollado en \cite{1}; Heapsort, desarrollado en \cite{2}; Smoothsort, desarrollado en \cite{3}; Quicksort C\'asico, desarrollado en \cite{2}; Quicksort Three Way, desarrollado en \cite{4}; Quicksort Dual Pivot, desarrollado en \cite{5}; Counting Sort y Radix Sort, desarrollados en \cite{2}.\\
 	
@@ -66,7 +86,7 @@
 		\hline
 	\end{array}$$\:
 	\begin{center}
-		\textbf{Tabla 1:} Tiempos de ejecuci\'on de los algoritmos para arreglos de tamaño $n$
+		\textbf{Tabla 1:} Tiempos de ejecuci\'on (en segundos) de los algoritmos para arreglos de tamaño $n$ 
 	\end{center}\:
 
          \begin{center}
@@ -78,7 +98,7 @@
                     \draw[red, ultra thick] (1,7) -- (1.5,7)node[anchor=west, black]{Cl\'asico};
                     \draw[black, ultra thick] (1,6.5) -- (1.5,6.5)node[anchor=west, black]{Three Way};
                     \draw[magenta, ultra thick] (1,6) -- (1.5,6)node[anchor=west, black]{Dual Pivot};
-                    \draw[bronw, ultra thick] (1,5.5) -- (1.5,5.5)node[anchor=west, black]{Countingsort};
+                    \draw[brown, ultra thick] (1,5.5) -- (1.5,5.5)node[anchor=west, black]{Countingsort};
                     \draw[olive, ultra thick] (1,5) -- (1.5,5)node[anchor=west, black]{Radixsort};
         		\begin{axis}[
         			xmax=4000000, ymin=0,ymax=19.5, axis x line =center, axis y line=center,
@@ -144,7 +164,7 @@
         \end{center}
         \begin{center}
         	\caption{\textbf{Figura 1:} Comportamiento de los algoritmos en funci\'on del tamaño del arreglo.
-         Con el eje Y representando en tiempo($segundos$) y el eje X representando el tamaño($millones$) }
+         Con el eje Y representando en tiempo ($segundos$) y el eje X representando el tamaño ($millones$) }
         \end{center}
 	
 	En el estudio se obtuv\'o que el algoritmo Quicksort Three Way result\'o ser el m\'as r\'apido para los tamaños $n = 1000000$ y $n = 2000000$, mientras que Counting Sort fue el m\'as r\'apido para los tamaños $n = 3000000$ y $n = 4000000$.\\
