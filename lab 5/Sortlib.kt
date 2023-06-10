@@ -523,7 +523,6 @@ fun countingSort(A: Array<Int>) {
  * los dígitos de un arreglo D dado
  */
 
-
 fun radixSort(A: Array<Int>) {
 	var d = digitos(A)
 	for (i in 1..d) {
