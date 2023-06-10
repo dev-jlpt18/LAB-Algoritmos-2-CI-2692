@@ -1,0 +1,134 @@
+%Plantilla HCCB para Ubuntu
+
+\documentclass{article}
+
+%Los paquetes
+
+\usepackage{amsmath, amsfonts} %Paquetes para manejar cosas de matemática
+\usepackage[spanish, es-tabla]{babel} %Paquete para utilizar LaTeX en español. La parte "es-tabla" es para que salga "TABLA 1" (en lugar de "CUADRO 1" que es el defecto)
+\usepackage{graphicx} %Paquete para insertar imágenes
+\usepackage{setspace} %Paquete para trabajar con las medidas en el documento
+\usepackage[a4paper]{geometry} %Paquete para trabajar con el tamaño del papel y los márgenes
+\usepackage{tikz,xcolor,pgfplots}%Paquete para hacer el gráfico
+
+%Papel y márgenes
+
+\geometry{top=2cm, bottom=2cm, left=2cm, right=2cm} %Márgenes
+\setstretch{1} %Interlineado
+
+\begin{document}
+	\title{\normalsize{Universidad Sim\'on Bol\'ivar\\
+			Departamento de Computaci\'on y Tecnolog\'ia de la Informaci\'on\\
+			Laboratorio de Algoritmos y Estructuras II - CI2692}}
+	\author{\normalsize{Profesor: Guillermo Palma}\\
+		\normalsize{Estudiantes:}\\
+		\normalsize{Hayde\'e Castillo Borgo. Carnet: 16-10209}\\
+		\normalsize{Jes\'us Prieto. Carnet: 19-10211}}
+	\date{\normalsize{Trimestre Abril-Julio 2023}}
+	\maketitle
+	\begin{center}
+		\large{\textbf{Comparaci\'on de algunos algoritmos implementados en la librer\'ia Sortlib.kt}}\\
+		\large{\textbf{Laboratorio de la semana 5}}
+	\end{center}\:
+	
+	En el presente laboratorio se llev\'o a cabo un estudio experimental para comparar el tiempo de ejecuci\'on de los siguientes algoritmos de ordenamiento, los cuales se encuentran implementados en la librer\'ia Sortlib.kt: Mergesort, desarrollado en \cite{1}; Heapsort, desarrollado en \cite{2}; Smoothsort, desarrollado en \cite{3}; Quicksort C\'asico, desarrollado en \cite{2}; Quicksort Three Way, desarrollado en \cite{4}; Quicksort Dual Pivot, desarrollado en \cite{5}; Counting Sort y Radix Sort, desarrollados en \cite{2}.\\
+	
+	Para dicho estudio se emple\'o un computador Intel® Core™ i5-2450M CPU @ 2.50GHz × 4, con 8Gb de RAM y sistema operativo Ubuntu 20.04.6 LTS. Adem\'as, se emple\'o el lenguaje de programaci\'on Kotlin en su versi\'on 1.8.21 y Java Virtual Machine JVM, versi\'on 11.0.19.\\
+	
+	Es importante destacar que en la implementaci\'on de Radix Sort se emple\'o como algoritmo de ordenamiento estable una variante de Counting Sort, la cual utiliza un arreglo auxiliar para ordenar los elementos del arreglo principal de acuerdo a un d\'igito determinado. Dicho arreglo auxiliar contiene los d\'igitos de una posici\'on especificada, de los elementos del arreglo a ordenar; y esta variante se diseñ\'o en vista de que el algoritmo Counting Sort ordena un arreglo empleando las frecuencias de sus elementos, y para la ejecuci\'on de Radix Sort es necesario ordenarlo de acuerdo a las frecuencias de los d\'igitos de sus elementos.\\
+	
+	Asimismo, es importante destacar que en la implementaci\'on de Mergesort se utiliza como algoritmo de ordenamiento auxiliar Insertion Sort, para ordenar arreglos de tamaño $n \leq 90$. Insertion Sort tambi\'en se encuentra en la librer\'ia Sortlib.kt y es desarrollado en \cite{6}; y el tamaño apropiado para implementar dicho algoritmo como auxiliar en Mergesort se determin\'o en un estudio experimental realizado anteriormente.\\
+	
+	Todos los algoritmos analizados en el presente estudio se emplean para ordenar arreglos de tamaño $n$, con $n \geq 1$; y para comparar sus tiempos de ejecuci\'on en la pr\'actica, se consideraron cuatro tamaños de arreglos: $n = 1000000$, $n = 2000000$, $n = 3000000$ y $n = 4000000$.\\
+	
+	Para cada tamaño $n$ se generaron $3$ arreglos aleatorios, cuyos elementos ven\'ian dados por valores en el intervalo $[0,1000000)$, se ejecut\'o cada algoritmo en cada uno de los $3$ arreglos, se tom\'o el tiempo correspondiente a cada prueba (en segundos) y se calcularon los promedios y desviaciones est\'andar, agrupando las pruebas de acuerdo al tamaño del arreglo.\\
+	
+	Los resultados obtenidos se presentan en la siguiente tabla y en el siguiente gr\'afico. 
+
+	$$\begin{array}{|c|c|c|c|c|}
+		\hline
+		\textbf{Nombre del algoritmo} & \textbf{n = 1.000.000} & \textbf{n = 2.000.000} & \textbf{n = 3.000.000} & \textbf{n = 4.000.000}\\
+		\hline
+		\text{Mergesort} & 0.8590 \pm 0.495 & 1.8540 \pm 0.1051 & 2.6300\pm 0.0434 & 3.6373 \pm 0.1474 \\
+		\hline
+		\text{Heapsort} & 1.265 \pm 0.0455 & 3.0140 \pm 0.2804 & 4.8003 \pm 0.2543 & 6.6343 \pm 0.1323\\
+		\hline
+		\text{Smoothsort} & 3.0293 \pm 0.3819 & 6.7053 \pm 0.7065 & 12.3640 \pm 0.4299 & 19.0557 \pm 0.3984\\
+		\hline
+		\text{Quicksort Cl\'asico} & 0.5220 \pm 0.1191 & 1.0170 \pm 0.1196 & 1.7347 \pm 0.2718 & 2.9820 \pm 0.2451\\
+		\hline
+		\text{Quicksort Three Way} & \boldsymbol{0.3660 \pm 0.1481} & \boldsymbol{0.7393 \pm 0.1481} & 1.400\pm 0.2742 & 1.917 \pm 0.2911\\
+		\hline
+		\text{Quicksort Dual Pivot} & 0.4590 \pm 0.0850 & 0.8677 \pm 0.2111 & 1.4140\pm 0.1940 & 2.1487 \pm 0.1059\\
+		\hline
+		\text{Counting Sort} &  0.4423 \pm 0.0830 & 0.8033 \pm 0.1183 & \boldsymbol{1.1016\pm 0.0627} & \boldsymbol{1.5763 \pm 0.1628} \\
+		\hline
+		\text{Radix Sort} & 0.8380 \pm 0.1764 & 1.510 \pm 0.0624 & 2.5550\pm 0.0493 & 4.1786 \pm 0.1763\\
+		\hline
+	\end{array}$$\:
+	\begin{center}
+		\textbf{Tabla 1:} Tiempos de ejecuci\'on de los algoritmos para arreglos de tamaño $n$
+	\end{center}\:
+	
+	En el estudio se obtuv\'o que el algoritmo Quicksort Three Way result\'o ser el m\'as r\'apido para los tamaños $n = 1000000$ y $n = 2000000$, mientras que Counting Sort fue el m\'as r\'apido para los tamaños $n = 3000000$ y $n = 4000000$.\\
+	
+	Como era de esperarse, el algoritmo de ordenamiento lineal Counting Sort resulta ser muy eficiente en la pr\'actica para arreglos de gran tamaño, siendo adem\'as el segundo m\'as r\'apido para los tamaños $n = 1000000$ y $n = 2000000$. Sin embargo, a pesar de ser de orden lineal, dicho algoritmo es menos efectivo que Quicksort Three Way para $n = 1000000$ y $n = 2000000$; esto se debe a que, a diferencia de la variante de Quicksort, Counting Sort no ordena el arreglo en el lugar (\textit{in place}) sino que requiere de estructuras auxiliares que representan un incremento en el tiempo de ejecuci\'on en la pr\'actica.\\
+	
+	Por su parte, Radix Sort no prob\'o ser tan eficiente como se esperar\'ia al ser un algoritmo de ordenamiento lineal. Esto se debe a que las estructuras auxiliares requeridas para poder ordenar los elementos de acuerdo a sus d\'igitos producen un incremento en el tiempo de ejecuci\'on en la pr\'actica; adem\'as del incremento generado por las estructuras auxiliares empleadas por la variante de Counting Sort (el cual, como ya se mencion\'o, no ordena el arreglo \textit{in place}).\\
+	
+	De todo lo anterior se concluye que, entre los algoritmos implementados en Sortlib.kt, los algoritmos Quicksort Three Way y Counting Sort resultan ser los m\'as eficientes y recomendados al momento de ordenar arreglos de gran tamaño. 
+	
+	\begin{thebibliography}{}
+		\bibitem{1} Brassard, G., and Bratley, P. \textit{Fundamentals of Algorithmics}. Prentice Hall, 1996.
+		\bibitem{2} Cormen, T., Leirserson, C., Rivest, R., and Stein, C. \textit{Introduction to Algorithms}, 3ra ed. McGraw Hill, 2009.
+		\bibitem{3} Dijkstra, E. W. Smoothsort, an alternative for sorting in situ. Tech. rep., Burroughs
+		Corporation, 1981.
+		\bibitem{4} Sedgewick, R., and Bentley, J. Quicksort is optimal. https://sedgewick.
+		io/wp-content/uploads/2022/03/2002QuicksortIsOptimal.pdf, 2002. KnuthFest,
+		Stanford University.
+		\bibitem{5} Wild, S., and Nebel, M. E. Average case analysis of java 7’s dual pivot quicksort.
+		In \textit{Algorithms–ESA 2012: 20th Annual European Symposium, Ljubljana, Slovenia, Sep-
+		tember 10-12, 2012. Proceedings 20} (2012), Springer, pp. 825–836.
+		\bibitem{6} Aho, A., Hopcroft, J., and Ullman, J. \textit{Data structures and algorithms}. Addison-
+		Wesley, 1983.
+	\end{thebibliography}
+	
+\end{document}
+
+\begin{center}
+	\begin{tikzpicture}
+		\draw[black, thick] (1,8) rectangle (5,6);
+		\draw[blue, ultra thick] (1.5,7.5) -- (2.5,7.5)node[anchor=west, black]{Clasico};
+		\draw[orange, ultra thick] (1.5,7) -- (2.5,7)node[anchor=west, black]{Three Way};
+		\draw[green, ultra thick] (1.5,6.5) -- (2.5,6.5)node[anchor=west, black]{Dual Pivot};
+		\begin{axis}[
+			xlabel=$n$, ylabel=$s$, xlabel style={at={(ticklabel* cs:1.05)}},ylabel style={at={(ticklabel* cs:1)}},xmin=0,xmax=2000000, ymin=0,ymax=1.5, axis x line =center, axis y line=center,
+			width=10cm,height=10cm]
+			\addplot[blue,mark=*] plot coordinates{
+				(0, 0)
+				(500000, 0.2323)
+				(1000000, 0.4989)
+				(1500000, 0.9236)
+				(2000000, 1.299)
+			};
+			\addplot[orange,mark=+] plot coordinates{
+				(0, 0)
+				(500000,  0.1652)
+				(1000000, 0.3688)
+				(1500000, 0.6256)
+				(2000000, 0.8963)
+			};
+			\addplot[green,mark=square] plot coordinates{
+				(0, 0)
+				(500000, 0.2078)
+				(1000000, 0.4143)
+				(1500000, 0.7525)
+				(2000000, 1.1885)
+			};
+			
+		\end{axis}
+	\end{tikzpicture}
+\end{center}
+\begin{center}
+	\caption{\textbf{Figura 1:} Comportamiento de los algoritmos en funci\'on del tamaño del arreglo.}
+\end{center}
