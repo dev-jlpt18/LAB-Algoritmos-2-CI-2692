@@ -31,10 +31,9 @@ fun main(args: Array<String>) {
     println("Tenemos que se realizarán ${t} intentos, la secuencia es de clase ${s} y contiene ${n} elementos")
     println("")
     // Chequeo de la eficiencia de cada algoritmo Sort
-    var check = eficiencia(s, n, 1)
-    var check2 = eficiencia(s, n, 2)
-    var check3 = eficiencia(s, n, 3)
-    if (check == -1) {
+    var check = eficiencia(s, n)
+    var check1 = 1
+    if (check == -1 || check1 == -1) {
         return
     }
 }
@@ -120,9 +119,14 @@ fun obtenerDesviacionEstandarSecuencia(A: Array<Double>): Double {
 // Función que determina cuál algoritmo Sort se usara
 fun obtenerAlgoritmoSort(tipo: Int): String {
     when (tipo){
-        1 -> return "QuicksortClasico"
-        2 -> return "QuicksortThreeWay"
-        3 -> return "QuicksortDualPivot"
+        1 -> return "mergesortInsertion"
+        2 -> return "heapsort"
+        3 -> return "smoothsort"
+        4 -> return "countingSort"
+        5 -> return "radixSort"
+        6 -> return "quicksortClasico"
+        7 -> return "quicksortThreeWay"
+        8 -> return "quicksortDualPivot"
     }
     return "Algoritmo no encontrado"
 }
@@ -131,9 +135,14 @@ fun obtenerAlgoritmoSort(tipo: Int): String {
 fun medirTiempo(A: Array<Int>, x: Int): Double {
 	var tInicio: Long = System.currentTimeMillis()
 	when (x){
-        1 -> quicksortClasico(A)
-        2 -> quicksortThreeWay(A)
-        3 -> quicksortDualPivot(A) 
+        1 -> mergesortInsertion(A)
+        2 -> heapsort(A)
+        3 -> smoothsort(A)
+        4 -> countingSort(A)
+        5 -> radixSort(A)
+        6 -> quicksortClasico(A)
+        7 -> quicksortThreeWay(A)
+        8 -> quicksortDualPivot(A)
     }
 	if (!estaEnOrdenAscendente(A)) {
         // Si la secuencia no está ordenada de forma ascendente, la función retorna -1
@@ -145,11 +154,13 @@ fun medirTiempo(A: Array<Int>, x: Int): Double {
 }
 
 // Función que determina la eficiencia del algoritmo Sort seleccionado, de acuerdo al tiempo y el número de intentos 
-fun eficiencia(s: String, n: Int, i: Int): Int {
-    var j = 0
-    var tiempos: Array<Double> = Array(10, {0.0})
+fun eficiencia(s: String, n: Int): Int {
+    var i = 1
+    var tiempos: Array<Double> = Array(3, {0.0})
+    while (i < 6) {
         var id: String = obtenerAlgoritmoSort(i)
-        while (j < 10) {
+        var j = 0
+        while (j < 3) {
             var A: Array<Int> = generadorDeSecuecias(s, n)
             tiempos[j] = medirTiempo(A, i)
             if (tiempos[j] == -1.0) {
@@ -165,6 +176,44 @@ fun eficiencia(s: String, n: Int, i: Int): Int {
         println("Desviación estándar: ${desviacionEstandar} segundos")
         println("¡Todos los ordenamientos fueron exitosos!")
         println("")
-    
+        i++
+    }
+    return 1 
+}
+
+fun eficiencia1(s: String, n: Int): Int {
+    var j = 0
+    var tiempos: Array<Double> = Array(3, {0.0})
+    var tiempos2: Array<Double> = Array(3, {0.0})
+    var tiempos3: Array<Double> = Array(3, {0.0})
+    while(j < 3) {
+        var A: Array<Int> = generadorDeSecuecias(s, n)
+        tiempos[j] = medirTiempo(A, 6)
+        tiempos2[j] = medirTiempo(A, 7)
+        tiempos3[j] = medirTiempo(A, 8)
+        if (tiempos[j] == -1.0 || tiempos2[j] == -1.0 || tiempos3[j] == -1.0) {
+            println("Error intento, la secuencia no está ordenada")
+            return -1
+        }
+        j++
+    }
+    val tiempoPromedio: Double = obtenerPromedioSecuencia(tiempos)
+    val desviacionEstandar: Double = obtenerDesviacionEstandarSecuencia(tiempos)
+    val tiempoPromedio2: Double = obtenerPromedioSecuencia(tiempos2)
+    val desviacionEstandar2: Double = obtenerDesviacionEstandarSecuencia(tiempos2)
+    val tiempoPromedio3: Double = obtenerPromedioSecuencia(tiempos3)
+    val desviacionEstandar3: Double = obtenerDesviacionEstandarSecuencia(tiempos3)
+    println("Algoritmo: QuicksortClasico.")
+    println("Tiempo promedio: ${tiempoPromedio} segundos")
+    println("Desviación estándar: ${desviacionEstandar} segundos")
+    println("")
+    println("Algoritmo: QuicksorThreeWay.")
+    println("Tiempo promedio: ${tiempoPromedio2} segundos")
+    println("Desviación estándar: ${desviacionEstandar2} segundos")
+    println("")
+    println("Algoritmo: QuicksortDP.")
+    println("Tiempo promedio: ${tiempoPromedio3} segundos")
+    println("Desviación estándar: ${desviacionEstandar3} segundos")
+    println("")
     return 1 
 }
