@@ -8,6 +8,10 @@
  * Desarrollado por: Castillo, Haydeé y Prieto, Jesús.
  */ 
 
+// Librerias importadas
+import kotlin.math.max
+import kotlin.math.roundToInt
+
 // Procedimiento Swap
 
 fun swap (A: Array<Int>,x: Int, y: Int) {
