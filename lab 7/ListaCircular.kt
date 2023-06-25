@@ -1,9 +1,10 @@
-class ListaCircular(var lista: Nodo? = Nodo()) {
+class ListaCircular {
+    var centi: Nodo? = Nodo()
     fun agregarAlFrente(k: Int) {
         // Creacion del nodo
         val key = Nodo(k)
         // Creacion de Centinela para su modificacion
-        var centinela = lista
+        var centinela = centi
         // Se verifica si es una lista vacia
         if (centinela?.next == null) {
             centinela?.next = key
@@ -14,7 +15,7 @@ class ListaCircular(var lista: Nodo? = Nodo()) {
         } else {
             // Caso en donde no esta vacia
             // Creacion del primer elemento para modificar su apuntador
-        	var firts = centinela.next
+        	var first = centinela.next
             first?.prev = key
             
             // Se procede a indicar los apuntadores del nodo que se agregara al frente
@@ -25,12 +26,11 @@ class ListaCircular(var lista: Nodo? = Nodo()) {
             centinela.next = key
         }
     }
-    fun agregarAlFinal(k Int) {
+    fun agregarAlFinal(k: Int) {
         // Creacion del nodo
         val key = Nodo(k)
         // Creacion de Centinela para su modificacion
-        var centinela = lista
-
+        var centinela = centi
         // Se verifica si es una lista vacia, en ese caso vamos a la funcion agregarAlInicio, pues es lo mismo
         if (centinela?.next == null) {
             agregarAlFrente(k)
@@ -50,7 +50,7 @@ class ListaCircular(var lista: Nodo? = Nodo()) {
     }
     fun buscar(value: Int): Nodo? {
         // Usamos el nodo de la lista
-        var x = lista?.next
+        var x = centi?.next
         // Buscamos el nodo que sea igual al numero ingresado, es decir, que su key sea igual al valor
         while (x?.value != value && x?.value != null) {
             x = x?.next
@@ -76,12 +76,14 @@ class ListaCircular(var lista: Nodo? = Nodo()) {
             ladoIzquierdo?.next = ladoDerecho
    	    }
     }
-    fun printValues() {
-        // Impresion de los valores de cada nodo, empezando por el primer nodo y se detiene en el centinela
-        var e = lista?.next
+    fun printValues(): String{
+        // Impresion de los valores de cada nodo, empezando por el primer nodo y se detiene en el bucle
+        var valores= ""
+        var e = centi?.next
         while (e?.value != null) {
-            println("${e.value}")
+            valores = valores + " ${e?.value} "
             e = e.next
         }
+        return valores
     }
 }
