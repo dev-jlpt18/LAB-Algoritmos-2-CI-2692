@@ -5,8 +5,7 @@ class Pila(contenido: ListaCircular) {
 		}
 	
 	fun empilar(e: Int) {
-		var x = Nodo(e)
-		secuencia.agregarAlFinal(x)
+		secuencia.agregarAlFinal(e)
 	}
 
 	fun desempilar() {

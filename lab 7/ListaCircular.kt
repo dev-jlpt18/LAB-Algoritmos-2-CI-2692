@@ -8,7 +8,8 @@ class ListaCircular {
 		Centinela.next = Centinela
 	}
 
-	fun agregarAlFrente(x: Nodo) {
+	fun agregarAlFrente(k: Int) {
+		var x = Nodo(k)
 		x.next = Centinela.next
 		x.prev = Centinela
 		Centinela.next.prev = x
@@ -16,7 +17,8 @@ class ListaCircular {
 		numeroNodos = numeroNodos + 1 
 	}
 
-	fun agregarAlFinal(x: Nodo) {
+	fun agregarAlFinal(k: Int) {
+		var x = Nodo(k)
 		x.next = Centinela
 		x.prev = Centinela.prev
 		Centinela.prev.next = x
@@ -38,7 +40,7 @@ class ListaCircular {
 	}
 
 	fun eliminar(x: Nodo) {
-		if (x.estaInicializado() == true && x.key != null && x.prev != x && x.next != x) {
+		if (x.estaInicializado() == true && x.prev != x && x.next != x) {
 			x.prev.next = x.next
 			x.next.prev = x.prev
 			numeroNodos = numeroNodos - 1

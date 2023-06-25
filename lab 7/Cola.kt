@@ -5,8 +5,7 @@ class Cola(contenido: ListaCircular) {
 		}
 	
 	fun encolar(e: Int) {
-		var x = Nodo(e)
-		secuencia.agregarAlFinal(x)
+		secuencia.agregarAlFinal(e)
 	}
 
 	fun desencolar() {

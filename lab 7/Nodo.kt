@@ -13,7 +13,7 @@ class Nodo(clave: Int?){
 		var tmp2 = this::next.isInitialized
 		var tmp3 = tmp2 && tmp1
 		return tmp3
-	}
+	}	
 
 	override fun toString(): String {
 		return "${key}"
