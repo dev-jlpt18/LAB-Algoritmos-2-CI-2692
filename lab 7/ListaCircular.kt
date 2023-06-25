@@ -1,6 +1,6 @@
 class ListaCircular(var lista: Nodo? = Nodo()) {
-    fun agregarAlFrente(value: Int) {
-        val key = Nodo(value)
+    fun agregarAlFrente(k: Int) {
+        val key = Nodo(k)
         var centinela = lista
         if (centinela?.next == null) {
             centinela?.next = key
@@ -17,16 +17,13 @@ class ListaCircular(var lista: Nodo? = Nodo()) {
 
             centinela.next = key
         }
-        println("${key.next?.value}")
-        println("${key.prev?.value}")
-         println("concatenacion")
     }
-    fun agregarAlFinal(value: Int) {
-        val key = Nodo(value)
+    fun agregarAlFinal(k Int) {
+        val key = Nodo(k)
         var centinela = lista
 
         if (centinela?.next == null) {
-            agregarAlFrente(value)
+            agregarAlFrente(k)
         } else {
             var last = centinela.prev
             last?.next = key 
