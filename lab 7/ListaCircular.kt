@@ -9,11 +9,17 @@ class ListaCircular(var lista: Nodo? = Nodo()) {
             key.prev = centinela
             key.next = centinela
         } else {
-            key.next = centinela.next
+        	var firts = centinela.next
+            first?.prev = key
+            
+            key.next = first
             key.prev = centinela
 
             centinela.next = key
         }
+        println("${key.next?.value}")
+        println("${key.prev?.value}")
+         println("concatenacion")
     }
     fun agregarAlFinal(value: Int) {
         val key = Nodo(value)
@@ -32,28 +38,28 @@ class ListaCircular(var lista: Nodo? = Nodo()) {
         }
     }
     fun buscar(value: Int): Nodo? {
-        var x = lista
-        var y: Nodo?
-        while (x?.next != this.lista) {
-            y = x?.next
-            if (y?.value == value) {
-                return y
-            }
+        var x = lista?.next
+        while (x?.value != value && x?.value != null) {
             x = x?.next
+        }
+        if (x?.value == value) {
+        	return x
         }
         return null
     }
     fun eliminar(key: Nodo?) {
-        var x = lista
-        var ladoDerecho: Nodo?
-        var ladoIzquierdo: Nodo?
-        while (x?.value != key?.value) {
-            x = x?.next
+        if (key?.value != null && key?.prev != null && key?.next != null) 		{
+            var ladoDerecho: Nodo? = key.next
+            var ladoIzquierdo: Nodo? = key.prev
+            ladoDerecho?.prev = ladoIzquierdo
+            ladoIzquierdo?.next = ladoDerecho
+   	    }
+    }
+    fun printValues() {
+        var e = lista?.next
+        while (e?.value != null) {
+            println("${e.value}")
+            e = e.next
         }
-        ladoDerecho = x?.next
-        ladoIzquierdo = x?.prev
-
-        ladoDerecho?.prev = ladoIzquierdo
-        ladoIzquierdo?.next = ladoDerecho
     }
 }
