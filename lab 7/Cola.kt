@@ -1,7 +1,7 @@
 class Cola {
     var secuencia: ListaCircular = ListaCircular()
     fun encolar(x: Int) {
-        secuencia.agregarAlFrente(x)
+        secuencia.agregarAlFinal(x)
     }
     fun desencolar() {
         var primerNodo = secuencia.centi?.next
