@@ -1,69 +1,62 @@
 class ListaCircular {
-	
-	var Centinela: Nodo = Nodo(null)
-	var numeroNodos = 0
-	
-	init {
-		Centinela.prev = Centinela
-		Centinela.next = Centinela
-	}
+    
+    var centi: Nodo? = Nodo()
 
-	fun agregarAlFrente(k: Int) {
-		var x = Nodo(k)
-		x.next = Centinela.next
-		x.prev = Centinela
-		Centinela.next.prev = x
-		Centinela.next = x
-		numeroNodos = numeroNodos + 1 
-	}
+    fun agregarAlFrente(k: Int) {
+        val key = Nodo(k)
+        var centinela = centi
+        if (centinela?.next == null) {
+            centinela?.next = key
+            centinela?.prev = key 
+            key.prev = centinela
+            key.next = centinela
+        } else {
+            centinela.next?.prev = key
+            key.next = centinela.next
+            key.prev = centinela
+            centinela.next = key
+        }
+    }
 
-	fun agregarAlFinal(k: Int) {
-		var x = Nodo(k)
-		x.next = Centinela
-		x.prev = Centinela.prev
-		Centinela.prev.next = x
-		Centinela.prev = x
-		numeroNodos = numeroNodos + 1 
-	}
+    fun agregarAlFinal(k: Int) {
+        val key = Nodo(k)
+        var centinela = centi
+        if (centinela?.next == null) {
+            agregarAlFrente(k)
+        } else {
+            centinela.prev?.next = key 
+            key.prev = centinela.prev
+            key.next = centinela
+            centinela.prev = key
+        }
+    }
 
-	fun buscar(k: Int): Nodo? {
-		Centinela.key = k
-		var x = Centinela.next
-		while(x.key != k) {
-			x = x.next 
-		}
-		Centinela.key = null
-		if (x == Centinela) {
-			return null
-		}
-		return x
-	}
+    fun buscar(value: Int): Nodo? {
+        var x = centi?.next
+        while (x?.value != value && x?.value != null) {
+            x = x.next
+        }
+        if (x?.value == value) {
+        	return x
+        }
+        return null
+    }
 
-	fun eliminar(x: Nodo) {
-		if (x.estaInicializado() == true && x.prev != x && x.next != x) {
-			x.prev.next = x.next
-			x.next.prev = x.prev
-			numeroNodos = numeroNodos - 1
-			// El nodo eliminado se convierte en un "nodo solitario" que se llama a sí mismo
-			x.prev = x
-			x.next = x
-		}
-	}
+    fun eliminar(key: Nodo?) {
+        // El nodo ingresado debe pertenecer a la lista, en caso contrario no habrá cambios
+        if (key?.value != null && key.prev != null && key.next != null) {
+            key.next?.prev = key.prev
+            key.prev?.next = key.next
+   	    }
+    }
 
-	override fun toString(): String {
-		var lista = ""
-		var x = Centinela.next
-		while(x.key != null) {
-			lista = lista+" ${x.key} "
-			x = x.next 
-		}
-		return lista 
-	}
-
-	fun buscarYEliminar(k: Int) {
-		var y = buscar(k)
-		if(y != null) {
-			eliminar(y)
-		} 
-	}
+    override fun toString(): String{
+        var valores= ""
+        var e = centi?.next
+        while (e?.value != null) {
+            valores = valores + " ${e.value} "
+            e = e.next
+        }
+        return valores
+    }
 }

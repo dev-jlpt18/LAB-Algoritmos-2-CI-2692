@@ -1,40 +1,38 @@
-class Pila(contenido: ListaCircular) {
-	var secuencia: ListaCircular = contenido
-		set(value) {
-			field = value
-		}
-	
-	fun empilar(e: Int) {
-		secuencia.agregarAlFinal(e)
-	}
+class Pila {
 
-	fun desempilar() {
-		var x = secuencia.Centinela.prev
-		secuencia.eliminar(x)
-	}
+    var secuencia: ListaCircular = ListaCircular()
 
-	fun tope(): Int {
-		var x = secuencia.Centinela.prev
-		var tope = x.key
-		if (tope == null) {
-			println("La pila está vacía. Por defecto, se devuelve 0 como tope")
-			return 0
-		} else {
-			return tope
-		}
-	}
+    fun empilar(x: Int) {
+        secuencia.agregarAlFinal(x)
+    }
 
-	fun estaVacia(): Boolean{
-		var numeroElementos = secuencia.numeroNodos
-		if (numeroElementos <= 0) {
-			return true
-		} else {
-			return false
-		}
-	}
+    fun desempilar() {
+        var ultimoNodo = secuencia.centi?.prev
+        if (ultimoNodo?.value != null) {
+            secuencia.eliminar(ultimoNodo)
+        }
+    }
 
-	override fun toString(): String{
-		var rep = secuencia.toString()
-		return rep
-	}
+    fun tope(): Int {
+        var ultimoNodo = secuencia.centi?.prev
+        var valor = ultimoNodo?.value
+        if (valor != null) {
+            return valor
+        }
+        println("La pila está vacía. Por defecto se retorna 0 como tope")
+        return 0
+    }
+
+    fun estaVacia(): Boolean {
+        var primerNodo = secuencia.centi?.next
+        if (primerNodo?.value == null) {
+            return true
+        }
+        return false
+    }
+    
+    override fun toString(): String{
+        var lista = secuencia.toString()
+        return lista
+    }
 }

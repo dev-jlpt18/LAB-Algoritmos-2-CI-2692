@@ -1,40 +1,38 @@
-class Cola(contenido: ListaCircular) {
-	var secuencia: ListaCircular = contenido
-		set(value) {
-			field = value
-		}
-	
-	fun encolar(e: Int) {
-		secuencia.agregarAlFinal(e)
-	}
+class Cola {
 
-	fun desencolar() {
-		var x = secuencia.Centinela.next
-		secuencia.eliminar(x)
-	}
+    var secuencia: ListaCircular = ListaCircular()
 
-	fun primero(): Int {
-		var x = secuencia.Centinela.next
-		var primero = x.key
-		if (primero == null) {
-			println("La cola está vacía. Por defecto, se devuelve 0 como primer elemento")
-			return 0
-		} else {
-			return primero
-		}
-	}
+    fun encolar(x: Int) {
+        secuencia.agregarAlFinal(x)
+    }
 
-	fun estaVacia(): Boolean{
-		var numeroElementos = secuencia.numeroNodos
-		if (numeroElementos <= 0) {
-			return true
-		} else {
-			return false
-		}
-	}
+    fun desencolar() {
+        var primerNodo = secuencia.centi?.next
+        if (primerNodo?.value != null) {
+            secuencia.eliminar(primerNodo)
+        }
+    }
 
-	override fun toString(): String{
-		var rep = secuencia.toString()
-		return rep
-	}
+    fun primero(): Int {
+        var primerNodo = secuencia.centi?.next
+        var valor = primerNodo?.value
+        if (valor != null) {
+            return valor
+        }
+        println("La cola está vacía. Por defecto se retorna 0 como primer elemento")
+        return 0
+    }
+
+    fun estaVacia(): Boolean {
+        var primerNodo = secuencia.centi?.next
+        if (primerNodo?.value == null) {
+            return true
+        }
+        return false
+    }
+
+    override fun toString(): String{
+        var lista = secuencia.toString()
+        return lista
+    }
 }
