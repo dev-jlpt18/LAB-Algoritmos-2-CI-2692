@@ -1,0 +1,101 @@
+%Plantilla HCCB para Ubuntu
+
+\documentclass[titlepage]{article}
+
+%Los paquetes
+
+\usepackage{amsmath, amsfonts} %Paquetes para manejar cosas de matemática
+\usepackage[spanish, es-tabla]{babel} %Paquete para utilizar LaTeX en español. La parte "es-tabla" es para que salga "TABLA 1" (en lugar de "CUADRO 1" que es el defecto)
+\usepackage{graphicx} %Paquete para insertar imágenes
+\usepackage{setspace} %Paquete para trabajar con las medidas en el documento
+\usepackage[a4paper]{geometry} %Paquete para trabajar con el tamaño del papel y los márgenes
+%\usepackage{tikz,xcolor,pgfplots,}%Paquete para hacer el gráfico
+%\usepackage[dvipsnames]{xcolor}%paquete de colores
+
+%Papel y márgenes
+
+\geometry{top=2cm, bottom=2cm, left=2cm, right=2cm} %Márgenes
+\setstretch{1} %Interlineado
+
+\begin{document}
+	\begin{titlepage}
+		\centering
+		\includegraphics*[scale=0.2]{logo usb.jpg}
+		
+		\vspace{0.5cm}		
+		
+		\large 
+		Universidad Sim\'on Bol\'ivar\\
+		Departamento de Computaci\'on y Tecnolog\'ia de la Informaci\'on\\
+		Laboratorio de Algoritmos y Estructuras II - CI2692
+		
+		\vspace{7cm}
+		
+		\LARGE
+		\textbf{Implementaci\'on de tablas de Hash}
+		
+		\vspace{0.5cm}
+		
+		\textbf{Informe de laboratorio. Semana 8}
+		
+		\vspace{5cm}
+		
+		\large
+		
+		Profesor: Guillermo Palma\\
+		Estudiantes:\\
+		Hayde\'e Castillo Borgo. Carnet: 16-10209\\
+		Jes\'us Prieto. Carnet: 19-10211
+		
+		\vspace{5cm}
+		
+		Trimestre Abril-Julio 2023
+	\end{titlepage}
+	
+	En el presente laboratorio se llev\'o a cabo un estudio experimental para comparar el tiempo de ejecuci\'on de dos implementaciones del TAD Diccionario (presentado en \cite{1} y en el curso de teor\'ia de Algoritmos y Estructuras II) generadas empleando dos clases de tablas de Hash: hash con encadenamiento y cuckoo hashing (desarrolladas en \cite{2} y en el curso mencionado).\\
+	
+	Un TAD Diccionario posee un conjunto de claves conocidas y una tabla que corresponde al conjunto de (\textit{clave, valor}) que almacena, adem\'as de una serie de procedimientos. La implementaci\'on de dicha tabla es la que corresponde a las tablas de hash por encadenamiento y por cuckoo hashing, seg\'un sea el caso.\\ 
+	
+	Asimismo, para el conjunto de claves conocidas se emple\'o un esquema similar al de las tablas de hash correspondientes: en el caso de la implementaci\'on por encadenamiento, se emple\'o un arreglo de listas circulares compuestas por nodos con claves enteras (dicha clase de lista fue presentada en el laboratorio anterior); y en el caso del cuckoo hashing se emple\'o un arreglo del doble del tamaño de las tablas de hashing, para as\'i poder almacenar los datos de forma similar a los dos arreglos usados en dicho esquema de cuckoo hashing.\\
+	
+	Para el presente estudio se emple\'o un computador Intel® Core™ i5-2450M CPU @ 2.50GHz × 4, con 8Gb de RAM y sistema operativo Ubuntu 20.04.6 LTS. Adem\'as, se emple\'o el lenguaje de programaci\'on Kotlin en su versi\'on 1.8.21 y Java Virtual Machine JVM, versi\'on 11.0.19.\\
+	
+	En el estudio experimental se llevaron a cabo 5 pruebas en las cuales ambas implementaciones del TAD Diccionario deb\'ian evaluar el mismo arreglo de pares de tamaño $n$, de la siguiente manera:
+	\begin{enumerate}
+		\item Se gener\'o un arreglo con n\'umeros enteros aleatorios en el rango $[0,n/3]$
+		\item Con el arreglo anterior, se gener\'o un arreglo de pares (\textit{clave, valor}) donde la clave correspond\'ia a un n\'umero entero y el valor al mismo n\'umero en forma de String
+		\item Para cada uno de los elementos del arreglo de pares se hizo lo siguiente: se busc\'o si el elemento pertenec\'ia a la tabla de hash, en caso de que no entonces dicho elemento se agregaba, y en caso de que s\'i entonces se eliminaba.
+		\item Se tom\'o el tiempo de cada tabla de hash para procesar el arreglo de pares
+	\end{enumerate}
+	
+	Para dichas pruebas se consider\'o un tamaño $n = 5000000$ y los resultados promedios del tiempo de ejecuci\'on se presentan en la siguiente tabla y en el siguiente gr\'afico.	
+
+	$$\begin{array}{|c|c|}
+		\hline
+		\textbf{Tablas de Hash} & \textbf{Tiempo promedio}\\
+		\hline
+		\text{Hash con encadenamiento} & 13.2552\pm 1.0644 \\
+		\hline
+		\text{Cuckoo hashing} & \boldsymbol{11.4334\pm 0.6413}\\
+		\hline
+	\end{array}$$\:
+	\begin{center}
+		\textbf{Tabla 1:} Tiempos de ejecuci\'on (en segundos) de las tablas de Hash
+	\end{center}\:
+	
+	De los resultados anteriores se obtiene que la tabla de cuckoo hashing result\'o ser m\'as eficiente que la tabla de hash por encadenamiento.\\
+	
+	En este caso, el cuckoo hashing produj\'o un mejor tiempo gracias a que en su diseño e implementaci\'on, la b\'usqueda de un elemento es m\'as r\'apida que en el caso de una tabla de hash por encadenamiento, puesto que en el cuckoo hashing s\'olo es necesario verificar a lo mucho dos entradas de dos arreglos distintos, mientras que en el hash por encadenamiento es necesario buscar dentro de una lista doblemente enlazada en una posici\'on determinada por la funci\'on de hash.\\
+	
+	Adem\'as, en el caso del cuckoo hashing la eliminaci\'on tambi\'en resulta m\'as r\'apida que en la implementaci\'on del hash por encadenamiento, puesto que en este \'ultimo se debe buscar el elemento en una lista doblemente enlazada en una posici\'on determinada por la funci\'on de hash, mientras que en el cuckoo hasing s\'olo es necesario evaluar a lo mucho dos entradas en dos arreglos distintos.\\
+	
+	Sin embargo, es importante mencionar que la diferencia en tiempo de ejecuci\'on entre ambas implementaciones es menor a los $5$ segundos, por lo que no es muy considerable. Esto est\'a relacionado con el hecho de que el procedimiento para agregar elementos de la tabla de hash por encadenamiento resulta m\'as r\'apido que el del cuckoo hashing en el caso de presentarse colisiones, gracias al uso de listas doblemente enlazadas.
+	
+	\begin{thebibliography}{}
+		\bibitem{1} Ravelo, J. Especificación e implementación de tipos abstractos de datos. http:
+		//ldc.usb.ve/~jravelo/docencia/algoritmos/material/tads.pdf, 2012.
+		\bibitem{2} Cormen, T., Leirserson, C., Rivest, R., and Stein, C. \textit{Introduction to Algorithms}, 3ra ed. McGraw Hill, 2009.
+
+	\end{thebibliography}
+	
+\end{document}
