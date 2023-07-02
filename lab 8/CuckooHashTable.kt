@@ -155,6 +155,7 @@ class CuckooHashTable{
 		tabla2 = tablaNueva2
 	}
 
+	// Método para convertir las claves conocidas de un TAD Diccionario en un String
 	fun conocidasToString(): String {
 		var valores = ""
 		for (i in 0 until n) {
