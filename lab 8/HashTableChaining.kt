@@ -5,7 +5,7 @@ class HashTableChaining {
 	var n = 7
 	var totalElementos = 0
 	var factorDeCarga: Double = (totalElementos.toDouble())/(n.toDouble())
-	var conocidas = ListaCircular()
+	var conocidas = Array(n, {ListaCircular()})
 	var tabla = Array(n,{CircularList()})
 
 	// Procedimientos del TAD Diccionario
@@ -15,8 +15,8 @@ class HashTableChaining {
 		var x = HashTableEntry(k,texto)
 		var i = funcionDeHash(k)
 		tabla[i].agregarAlFrente(x)
+		conocidas[i].agregarAlFrente(k)
 		totalElementos++
-		conocidas.agregarAlFrente(k)
 		ajustarTabla()
 		
 	}
@@ -27,9 +27,9 @@ class HashTableChaining {
 		var x = tabla[i].buscar(k)
 		if (x != null) {
 			tabla[i].eliminar(x)
+			var nodoTmp = conocidas[i].buscar(k)
+			conocidas[i].eliminar(nodoTmp)
 			totalElementos--
-			var nodoTmp = conocidas.buscar(k)
-			conocidas.eliminar(nodoTmp)
 			ajustarTabla()	
 		}
 	}
@@ -93,6 +93,7 @@ class HashTableChaining {
 	fun rehashing(n1: Int, tablaA: Array<CircularList>) {
 		var nuevoN = incr(n1)
 		n = nuevoN
+		var conocidasNueva = Array(nuevoN, {ListaCircular()})
 		var tablaNueva = Array(nuevoN, {CircularList()})
 		for (i in 0 until n1) {
 			var y = tablaA[i].centi?.next
@@ -101,8 +102,10 @@ class HashTableChaining {
 				y = y.next 
 				var j = funcionDeHash(x.clave!!)
 				tablaNueva[j].agregarAlFrente(x)
+				conocidasNueva[j].agregarAlFrente(x.clave!!)
 			}
 		}
+		conocidas = conocidasNueva
 		tabla = tablaNueva
 	}
 
@@ -113,6 +116,17 @@ class HashTableChaining {
 			return true
 		}
 		return false
+	}
+
+	// Método para convertir las claves conocidas de un TAD Diccionario en un String
+	fun conocidasToString(): String {
+		var valores = ""
+		for (i in 0 until n) {
+			if (casillaVacia(i) == false) {
+				valores = valores + conocidas[i].toString()
+			}
+		}
+		return valores
 	}
 }
 

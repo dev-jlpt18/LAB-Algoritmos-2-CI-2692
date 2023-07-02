@@ -5,7 +5,7 @@ class CuckooHashTable{
 	var n = 7
 	var totalElementos = 0
 	var factorDeCarga: Double = (totalElementos.toDouble())/(n.toDouble())
-	var conocidas = ListaCircular()
+	var conocidas: Array<Int?> = Array(2*n, {null})
 	var tabla1 = Array(n, {CuckooHashTableEntry(null, null)})
 	var tabla2 = Array(n, {CuckooHashTableEntry(null, null)})
 	val A = 0.6180339887
@@ -22,20 +22,20 @@ class CuckooHashTable{
 			var j = funcionDeHash1(x.clave!!)
 			var tmp1 = tabla1[j]
 			tabla1[j] = x
+			conocidas[j] = x.clave
 			x = tmp1
 			if (x.clave == null) {
 				totalElementos++
-				conocidas.agregarAlFrente(k)
 				ajustarTabla()
 				return
 			}
 			j = funcionDeHash2(x.clave!!)
 			var tmp2 = tabla2[j]
 			tabla2[j] = x
+			conocidas[j+n] = x.clave
 			x = tmp2
 			if (x.clave == null) {
 				totalElementos++
-				conocidas.agregarAlFrente(k)
 				ajustarTabla()
 				return
 			}
@@ -49,18 +49,16 @@ class CuckooHashTable{
 		var h1 = funcionDeHash1(k)
 		if (tabla1[h1].clave == k){
 			tabla1[h1] = CuckooHashTableEntry(null, null)
+			conocidas[h1] = null
 			totalElementos--
-			var nodoTmp = conocidas.buscar(k)
-			conocidas.eliminar(nodoTmp)
 			ajustarTabla()
 			return
 		}
 		var h2 = funcionDeHash2(k)
 		if (tabla2[h2].clave == k){
 			tabla2[h2] = CuckooHashTableEntry(null, null)
+			conocidas[h2+n] = null
 			totalElementos--
-			var nodoTmp = conocidas.buscar(k)
-			conocidas.eliminar(nodoTmp)
 			ajustarTabla()
 			return
 		}
@@ -137,19 +135,36 @@ class CuckooHashTable{
 	fun rehashing(n1: Int, tablaA: Array<CuckooHashTableEntry>, tablaB: Array<CuckooHashTableEntry>) {
 		var nuevoN = incr(n1)
 		n = nuevoN
+		var conocidasNueva: Array<Int?> = Array(2*n, {null})
 		var tablaNueva1 = Array(n, {CuckooHashTableEntry(null, null)})
 		var tablaNueva2 = Array(n, {CuckooHashTableEntry(null, null)})
 		for (i in 0 until n1) {
 			if (tablaA[i].clave != null) {
 				var j = funcionDeHash1(tablaA[i].clave!!)
 				tablaNueva1[j] = tablaA[i]
+				conocidasNueva[j] = tablaA[i].clave!!
 			}
 			if (tablaB[i].clave != null) {
 				var j = funcionDeHash2(tablaB[i].clave!!)
 				tablaNueva2[j] = tablaB[i]
+				conocidasNueva[j+n] = tablaB[i].clave!!
 			}
 		}
+		conocidas = conocidasNueva
 		tabla1 = tablaNueva1
 		tabla2 = tablaNueva2
+	}
+
+	fun conocidasToString(): String {
+		var valores = ""
+		for (i in 0 until n) {
+			if (conocidas[i] != null) {
+				valores = valores + " ${conocidas[i]} "
+			}
+			if (conocidas[i+n] != null) {
+				valores = valores + " ${conocidas[i+n]} "
+			}
+		}
+		return valores 
 	}
 }
