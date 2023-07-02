@@ -5,29 +5,13 @@ fun main(args: Array<String>) {
 		A[i] = (0..n/3).random()
 	}
 	var pares = generarArregloPares(A)
-	
 	var TablaHashChaining = HashTableChaining()
 	var tiempoChaining = medirTiempoChaining(pares, TablaHashChaining)
 	println("La prueba de la tabla de Hash con encadenamiento tomó ${tiempoChaining} segundos")
 	println(" ")
-
-	/*println("La tabla chaining es")
-	println(TablaHashChaining.toString())
-	println("Y las claves conocidas son")
-	println(TablaHashChaining.conocidasToString())
-	println("Total elementos: ${TablaHashChaining.numElementos()}")
-	*/
-	
 	var TablaHashCuckoo = CuckooHashTable()
 	var tiempoCuckoo = medirTiempoCuckoo(pares, TablaHashCuckoo)
 	println("La prueba de la tabla de Hash con cuckoo hashing tomó ${tiempoCuckoo} segundos")
-
-	/*println("La tabla cuckoo es")
-	println(TablaHashCuckoo.toString())
-	println("Y las claves conocidas son")
-	println(TablaHashCuckoo.conocidasToString())
-	println("Total elementos: ${TablaHashCuckoo.numElementos()}")
-	*/
 }
 
 fun generarArregloPares(A: Array<Int>): Array<Pair<Int,String>>{
@@ -51,31 +35,9 @@ fun probarTablaHashChaining(A: Array<Pair<Int,String>>, TablaHash: HashTableChai
 	var n = A.size
 	for (i in 0 until n) {
 		if (TablaHash.buscar(A[i].first) == null){
-			TablaHash.agregar(A[i].first, A[i].second)
-			
-			/*println("Agregar ${A[i].first}. La tabla queda")
-			println(TablaHash.toString())
-			println("Y las claves conocidas son")
-			println(TablaHash.conocidasToString())
-			println("Total elementos: ${TablaHash.numElementos()}")
-			println("")*/
-		
+			TablaHash.agregar(A[i].first, A[i].second)		
 		} else {
-
-			//println("La busqueda resultó en ${TablaHash.buscar(A[i].first)}")
-			//println("Existe es ${TablaHash.existe(A[i].first)}")
-
 			TablaHash.eliminar(A[i].first)
-
-			/*println("eliminar ${A[i].first}. La tabla queda")
-			println(TablaHash.toString())
-			println("Y las claves conocidas son")
-			println(TablaHash.conocidasToString())
-			println("Total elementos: ${TablaHash.numElementos()}")
-			println("La nueva busqueda resultó en ${TablaHash.buscar(A[i].first)}")
-			println("Existe es ${TablaHash.existe(A[i].first)}")
-			println("")*/
-		
 		}
 	}
 }
@@ -93,30 +55,8 @@ fun probarTablaHashCuckoo(A: Array<Pair<Int,String>>, TablaHash: CuckooHashTable
 	for (i in 0 until n) {
 		if (TablaHash.buscar(A[i].first) == null){
 			TablaHash.agregar(A[i].first, A[i].second)
-			
-			/*println("Agregar ${A[i].first}. La tabla queda")
-			println(TablaHash.toString())
-			println("Y las claves conocidas son")
-			println(TablaHash.conocidasToString())
-			println("Total elementos: ${TablaHash.numElementos()}")
-			println("")*/
-		
 		} else {
-
-			//println("La busqueda resultó en ${TablaHash.buscar(A[i].first)}")
-			//println("Existe es ${TablaHash.existe(A[i].first)}")
-
 			TablaHash.eliminar(A[i].first)
-			
-			/*println("eliminar ${A[i].first}. La tabla queda")
-			println(TablaHash.toString())
-			println("Y las claves conocidas son")
-			println(TablaHash.conocidasToString())
-			println("Total elementos: ${TablaHash.numElementos()}")
-			println("La nueva busqueda resultó en ${TablaHash.buscar(A[i].first)}")
-			println("Existe es ${TablaHash.existe(A[i].first)}")
-			println("")*/
-		
 		}
 	}
 }
