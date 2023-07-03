@@ -9,8 +9,8 @@
 \usepackage{graphicx} %Paquete para insertar imágenes
 \usepackage{setspace} %Paquete para trabajar con las medidas en el documento
 \usepackage[a4paper]{geometry} %Paquete para trabajar con el tamaño del papel y los márgenes
-%\usepackage{tikz,xcolor,pgfplots,}%Paquete para hacer el gráfico
-%\usepackage[dvipsnames]{xcolor}%paquete de colores
+\usepackage{tikz,xcolor,pgfplots,}%Paquete para hacer el gráfico
+\usepackage[dvipsnames]{xcolor}%paquete de colores
 
 %Papel y márgenes
 
@@ -82,7 +82,24 @@
 	\begin{center}
 		\textbf{Tabla 1:} Tiempos de ejecuci\'on (en segundos) de las tablas de Hash
 	\end{center}\:
-	
+        \begin{center}
+	\begin{tikzpicture}
+          \begin{axis}[
+                xbar, xmin=0,xmax=15,
+                width=12cm, height=6cm, enlarge y limits=0.2,
+                xlabel={Tiempo promedio (en segundos)},
+                symbolic y coords={Cuckoo, ,Chained Hashing},
+                nodes near coords, nodes near coords align={horizontal},
+                ]
+                \addplot coordinates {(11.4334,Cuckoo) 
+                (13.2552,Chained Hashing)
+                };
+            \end{axis}
+        \end{tikzpicture}
+        \end{center}\:
+        \begin{center}
+		\textbf{Tabla 2:} Tiempos de ejecuci\'on de las tablas de Hash con 5 millones de elementos aleatorios
+	\end{center}\:
 	De los resultados anteriores se obtiene que la tabla de cuckoo hashing result\'o ser m\'as eficiente que la tabla de hash por encadenamiento.\\
 	
 	En este caso, el cuckoo hashing produj\'o un mejor tiempo gracias a que en su diseño e implementaci\'on, la b\'usqueda de un elemento es m\'as r\'apida que en el caso de una tabla de hash por encadenamiento, puesto que en el cuckoo hashing s\'olo es necesario verificar a lo mucho dos entradas de dos arreglos distintos, mientras que en el hash por encadenamiento es necesario buscar dentro de una lista doblemente enlazada en una posici\'on determinada por la funci\'on de hash.\\

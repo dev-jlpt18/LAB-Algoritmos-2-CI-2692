@@ -20,7 +20,6 @@ class HashTableChaining {
 		ajustarTabla()
 		
 	}
-
 	// Método para eliminar una clave dada de un TAD diccionario
 	fun eliminar(k: Int) {
 		var i = funcionDeHash(k)
