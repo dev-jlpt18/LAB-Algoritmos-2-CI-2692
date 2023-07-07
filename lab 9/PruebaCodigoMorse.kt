@@ -5,7 +5,7 @@ fun main (args: Array<String>) {
 	}
 	frase = frase + args[args.size-1]
 	var pruebaCodigoMorse = CodigoMorse()
-	var fraseDecodificada = pruebaCodigoMorse.decodificarFrase(frase)
+	var fraseDecodificada = pruebaCodigoMorse.decodificarMensaje(frase)
 	if (fraseDecodificada == null) {
 		println("Error, código morse no válido")
 	} else {

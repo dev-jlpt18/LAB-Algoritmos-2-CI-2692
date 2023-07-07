@@ -21,7 +21,7 @@ class CodigoMorse {
         return x?.key
     }
 
-    fun decodificarFrase(frase: String): String? {
+    fun decodificarMensaje(frase: String): String? {
         var fraseDecodificada = ""
         var n = frase.length
         var i = 0
