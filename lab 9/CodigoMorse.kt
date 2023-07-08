@@ -15,6 +15,7 @@ class CodigoMorse {
             return null
         } else {
             palabra = palabra + caracter.letra
+            println(palabra)
             return palabra
         }
     }
